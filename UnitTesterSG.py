@@ -28,26 +28,37 @@ def customCompare(firstInComparison,secondInComparison):
         if isinstance(firstInComparison,collections.Iterable) and isinstance(secondInComparison,collections.Iterable):
             firstInComparisonArray = np.array(firstInComparison)
             secondInComparisonArray = np.array(secondInComparison)
-            
-                
-                #Taking the difference of two arrays will yield in all elements being zero if the arrays are the same
-            try:    
-                #Initializing diffOfArrays since it is needed for the subtractNested function
-                diffOfArrays = nested_iter_to_nested_list(copy.deepcopy(firstInComparisonArray))
-                #If the arrays are the same, subtractNested overwrites diffOfArrays with all zeros
-                #If there is a tuple or any other immutable type, the subtractNested function will not work
-                subtractNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays)
-				
+            #If arrays are not nested then simple subtraction using the - operator will work
+            #Otherwise use nested array functions
+            try:
+				#diffOfArrays will be an array of zeros if the two arrays are equal
+                diffOfArrays = firstInComparisonArray - secondInComparisonArray
+				#take the sum of the differences
+                sumOfDifference = sumNestedAbsValues(diffOfArrays)
+				#If the sum of differences is 0 then the two arrays must be the same
+				#Otherwise they have different values and customCompare returns False
+                if sumOfDifference == 0:
+                    return True
+                else:
+                    return False
             except:
-                return False
-            #The difference sum keeps adding all the values until it no longer has an array
-            sumOfDifference = sumNestedAbsValues(diffOfArrays)
-            
-            #If the two arrays are equal, then the sum of the differences Array should be zero
-            if sumOfDifference == 0:
-                return True
-            else:
-                return False
+    				#Taking the difference of two arrays will yield in all elements being zero if the arrays are the same
+					#If arrays are of different shape they will not be equal and the subtraction between the two will result in an error
+                try:    
+    				#Initializing diffOfArrays since it is needed for the subtractNested function
+                    diffOfArrays = nested_iter_to_nested_list(copy.deepcopy(firstInComparisonArray))
+    				#If the arrays are the same, subtractNested overwrites diffOfArrays with all zeros
+                    subtractNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays)
+                except:
+                    return False
+                #The difference sum keeps adding all the values until it no longer has an array
+                sumOfDifference = sumNestedAbsValues(diffOfArrays)
+    				
+                #If the two arrays are equal, then the sum of the differences Array should be zero
+                if sumOfDifference == 0:
+                    return True
+                else:
+                    return False
                 
 
 		#checks to see if one, not both, of the variables are iterable
