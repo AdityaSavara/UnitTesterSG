@@ -9,6 +9,7 @@ import numpy as np
 import collections
 import copy
 from nestedObjectsFunctions import *
+import pickle
 
 
 '''
@@ -80,7 +81,6 @@ def customCompare(firstInComparison,secondInComparison):
 
 
 def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=''):
-    import pickle
     calculated_resultObj_pickledfile='{}calculated_resultObj{}.p'.format(prefix,suffix)
     calculated_resultStr_file='{}calculated_resultStr{}.txt'.format(prefix,suffix)
     expected_result_file='{}expected_resultObj{}.p'.format(prefix,suffix)
@@ -142,6 +142,16 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
             pass    
         else:
             print("Error: Only Y or N allowed. Please run program again.")
+			
+# skip running the whole program and just set the expected result
+def set_expected_result(expected_result_obj,expected_result_str='',
+                        prefix='',suffix=''):
+    expected_result_obj_file='{}expected_resultObj{}.p'.format(prefix,suffix)
+    expected_result_str_file='{}expected_resultStr{}.txt'.format(prefix,suffix)
+    with open(expected_result_obj_file,'wb') as expected_result_file:
+        pickle.dump(expected_result_obj,expected_result_file)
+    with open(expected_result_str_file,'w') as expected_result_file:
+        expected_result_file.write(expected_result_str)
 
 if __name__=="__main__":
     import os
