@@ -7,7 +7,7 @@ Created on Tue Jun 12 14:07:44 2018
 
 #The following lines are mandatory for the code
 #import the functions from UnitTesterSG
-from UnitTesterSG import *
+import UnitTesterSG as ut
 #Extracting the digit from the file name to use as prefix/suffix in check_results
 def returnDigitFromFilename():
     import os
@@ -24,12 +24,18 @@ from sumOfValues import sum_of_elements
 suffix = returnDigitFromFilename()
 #input
 input = [1,2,3]
-#output
+
+#sets expected results
+expected_results = 6
+ut.set_expected_result(expected_results, str(expected_results), prefix = '', suffix=suffix)
+
+#outputs with the function using user input
 output = sum_of_elements(input)
 resultObj = (output)
+
 #String is provided
 resultStr = str(resultObj)
 #run the Unit Tester
-check_results(resultObj, resultStr, prefix = '', suffix=suffix)
+ut.check_results(resultObj, resultStr, prefix = '', suffix=suffix)
 
 
