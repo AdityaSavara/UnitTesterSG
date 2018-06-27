@@ -3,7 +3,7 @@ Using the Unit Testing Module (UnitTesterSG):
 The unit tester is designed to test individual functions by storing outputs of a working function in an expected results file and comparing this output to the current output of the same function that may have been edited.
 This is done so that the user can use his or her expected output to test the function at a later time to make sure the output now is the same as before and that no errors have come up. This module is designed to be able to unit test arrays, strings, as well as nested and deeply nested objects (including arrays with tuples inside, arrays with strings inside, etc.). The module is compatable with nested objects, and thus has a dependency on the nestedObjectsFunctions module. The module takes *calculated* results and then compares them to *expected* results. If no expected results are available (or they do not match the calculated results) the module then offers to store the calculated results as expected results for next time.
 
-Provided are multiple test cases in ExampleFiles: some have hard coded results while the last one shows how to use write a test file for a function.
+Provided are multiple test cases in ExampleFiles: some have hard coded results while the last one shows how to use write a test file using a function.
 
 A typical template of what a test file should look like during practical use is in test11.py.  This file uses a simple function to sum values in a list together.
 To use these examples, make sure UnitTesterSG.py, nestedObjectsFunctions.py, and the test.py files are in the same directory.  Run UnitTesterSG and it will test the test cases present with the directory that have names like "test1.py", "test2.py", etc.
