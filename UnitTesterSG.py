@@ -11,6 +11,27 @@ import copy
 from nestedObjectsFunctions import *
 import pickle
 
+'''
+This function takes in two arrarys (or iterables) and compares them using functions from the nestedObjectsFunctions module
+'''
+def compareNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays):
+        #Taking the difference of two arrays will yield in all elements being zero if the arrays are the same
+        #If arrays are of different shape they will not be equal and the subtraction between the two will result in an error
+    try:    
+                    #Initializing diffOfArrays since it is needed for the subtractNested function
+        diffOfArrays = nested_iter_to_nested_list(copy.deepcopy(firstInComparisonArray))
+        #If the arrays are the same, subtractNested overwrites diffOfArrays with all zeros
+        subtractNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays)
+    except:
+        return False
+    #The difference sum keeps adding all the values until it no longer has an array
+    sumOfDifference = sumNestedAbsValues(diffOfArrays)
+    #If the two arrays are equal, then the sum of the differences Array should be zero
+    if sumOfDifference == 0:
+        return True
+    else:
+        return False
+
 
 '''
 customCompare takes in two values and compares them based on their types
@@ -27,43 +48,36 @@ def customCompare(firstInComparison,secondInComparison):
     if ((type(firstInComparison) != str) and (type(secondInComparison) != str)):
         #checks to see if both variables are iterable and converts them into numpy arrays
         if isinstance(firstInComparison,collections.Iterable) and isinstance(secondInComparison,collections.Iterable):
-            if not isinstance(firstInComparison,list) and not isinstance(secondInComparison,list):
+            try:
                 firstInComparisonArray = np.array(firstInComparison)
                 secondInComparisonArray = np.array(secondInComparison)
-            else:
-                firstInComparisonArray = firstInComparison
-                secondInComparisonArray = secondInComparison
-            #If arrays are not nested then simple subtraction using the - operator will work
-            #Otherwise use nested array functions
-            try:
-                #diffOfArrays will be an array of zeros if the two arrays are equal
-                diffOfArrays = firstInComparisonArray - secondInComparisonArray
-                #take the sum of the differences
-                sumOfDifference = sumNestedAbsValues(diffOfArrays)
-                #If the sum of differences is 0 then the two arrays must be the same
-                #Otherwise they have different values and customCompare returns False
-                if sumOfDifference == 0:
-                    return True
-                else:
-                    return False
+                #If arrays are not nested then simple subtraction using the - operator will work
+                #Otherwise use nested array functions
+                try:
+                    #diffOfArrays will be an array of zeros if the two arrays are equal
+                    diffOfArrays = firstInComparisonArray - secondInComparisonArray
+                    #take the sum of the differences
+                    sumOfDifference = sumNestedAbsValues(diffOfArrays)
+                    #If the sum of differences is 0 then the two arrays must be the same
+                    #Otherwise they have different values and customCompare returns False
+                    if sumOfDifference == 0:
+                        return True
+                    else:
+                        return False
+                except: 
+                    if compareNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays):
+                        return True
+                    else:
+                        return False
+            #Try to convert to an array, if this can not be done it is probably a nested tuple or nested list
+            #Functions in the nestedObjectFunctions module do work with nested tuples and lists so the except statement tells the code to do just that
             except:
-                    #Taking the difference of two arrays will yield in all elements being zero if the arrays are the same
-                    #If arrays are of different shape they will not be equal and the subtraction between the two will result in an error
-                try:    
-                    #Initializing diffOfArrays since it is needed for the subtractNested function
-                    diffOfArrays = nested_iter_to_nested_list(copy.deepcopy(firstInComparisonArray))
-                    #If the arrays are the same, subtractNested overwrites diffOfArrays with all zeros
-                    subtractNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays)
-                except:
-                    return False
-                #The difference sum keeps adding all the values until it no longer has an array
-                sumOfDifference = sumNestedAbsValues(diffOfArrays)
-                #If the two arrays are equal, then the sum of the differences Array should be zero
-                if sumOfDifference == 0:
+                diffOfArrays = copy.deepcopy(firstInComparison)
+                if compareNested(firstInComparison,secondInComparison,diffOfArrays):
                     return True
                 else:
                     return False
-                
+
 
         #checks to see if one, not both, of the variables are iterable
         #this is for the case with one variable being None
