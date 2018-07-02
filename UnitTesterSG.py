@@ -27,8 +27,12 @@ def customCompare(firstInComparison,secondInComparison):
     if ((type(firstInComparison) != str) and (type(secondInComparison) != str)):
         #checks to see if both variables are iterable and converts them into numpy arrays
         if isinstance(firstInComparison,collections.Iterable) and isinstance(secondInComparison,collections.Iterable):
-            firstInComparisonArray = np.array(firstInComparison)
-            secondInComparisonArray = np.array(secondInComparison)
+            if not isinstance(firstInComparison,list) and not isinstance(secondInComparison,list):
+                firstInComparisonArray = np.array(firstInComparison)
+                secondInComparisonArray = np.array(secondInComparison)
+            else:
+                firstInComparisonArray = firstInComparison
+                secondInComparisonArray = secondInComparison
             #If arrays are not nested then simple subtraction using the - operator will work
             #Otherwise use nested array functions
             try:
