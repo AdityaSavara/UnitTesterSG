@@ -171,6 +171,17 @@ def set_expected_result(expected_result_obj,expected_result_str='',
     with open(expected_result_str_file,'w') as expected_result_file:
         expected_result_file.write(expected_result_str)
 
+#extracting the digit from the file name to use as prefix/suffix in check_results
+def return_digit_from_filename(callingFile):
+    import os
+    filename=os.path.basename(callingFile)
+    import re
+    listOfNumbers=re.findall('\d+',filename)
+    #the digit is the first element in list of numbers
+    extractedDigit=listOfNumbers[0]
+    return extractedDigit
+
+
 if __name__=="__main__":
     import os
     working_dir=os.getcwd()
@@ -181,3 +192,4 @@ if __name__=="__main__":
             exec('import test{}'.format(i))
         except ImportError:
             pass
+
