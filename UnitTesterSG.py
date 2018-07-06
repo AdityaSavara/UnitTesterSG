@@ -115,7 +115,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
     if customCompare(calculated_resultObj_unpacked,calculated_resultObj) == True:
         print('calculated_Results before and after pickling match.')
     else:
-        print("calculated_Results before and after pickling don't match (or is nested and/or contains an unsupported datatype).")
+        print("calculated_Results before and after pickling don't match. (or is nested)")
     #Writing the string results:
     with open(calculated_resultStr_file,'w') as calculated_result_str:
         calculated_result_str.write(calculated_resultStr)
@@ -142,7 +142,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
     if customCompare(expected_resultObj_unpacked,calculated_resultObj_unpacked) == True:
         print('Expected result matches calculated_result.')
     else:
-        print('Expected result does not match calculated_result (or is nested and/or contains an unsupported datatype).')
+        print('Expected result does not match calculated_result. (or is nested)')
     if expected_resultStr_read==calculated_resultStr_read:
         print('Expected result string matches calculated_result string')
     else:
@@ -171,6 +171,17 @@ def set_expected_result(expected_result_obj,expected_result_str='',
     with open(expected_result_str_file,'w') as expected_result_file:
         expected_result_file.write(expected_result_str)
 
+#extracting the digit from the file name to use as prefix/suffix in check_results
+def return_digit_from_filename(callingFile):
+    import os
+    filename=os.path.basename(callingFile)
+    import re
+    listOfNumbers=re.findall('\d+',filename)
+    #the digit is the first element in list of numbers
+    extractedDigit=listOfNumbers[0]
+    return extractedDigit
+
+
 if __name__=="__main__":
     import os
     working_dir=os.getcwd()
@@ -181,3 +192,4 @@ if __name__=="__main__":
             exec('import test{}'.format(i))
         except ImportError:
             pass
+
