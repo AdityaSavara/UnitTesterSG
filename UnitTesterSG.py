@@ -142,7 +142,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
     if customCompare(expected_resultObj_unpacked,calculated_resultObj_unpacked) == True:
         print('Expected result matches calculated_result.')
     else:
-        print('Expected result does not match calculated_result(or is nested and/or contains an unsupported datatype).')
+        print('Expected result does not match calculated_result (or is nested and/or contains an unsupported datatype).')
     if expected_resultStr_read==calculated_resultStr_read:
         print('Expected result string matches calculated_result string')
     else:
