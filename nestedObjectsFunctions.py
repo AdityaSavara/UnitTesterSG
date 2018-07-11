@@ -66,7 +66,6 @@ def subtractNested(arr1,arr2,subtractionResult):
                 #The 0 or 1 returned is opposite what is normally done in Python
                 #1 is usually true and 0 is usually false 
                 if arr1 == arr2:
-                    print(elemindex,arr1,arr2)
                     subtractionResult[elemindex] = 0
                 else:
                     subtractionResult[elemindex] = 1
