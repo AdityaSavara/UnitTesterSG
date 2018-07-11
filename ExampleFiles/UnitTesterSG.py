@@ -115,7 +115,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
     if customCompare(calculated_resultObj_unpacked,calculated_resultObj) == True:
         print('calculated_Results before and after pickling match.')
     else:
-        print("calculated_Results before and after pickling don't match. (or is nested)")
+        print("calculated_Results before and after pickling don't match (or is nested and/or contains an unsupported datatype).")
     #Writing the string results:
     with open(calculated_resultStr_file,'w') as calculated_result_str:
         calculated_result_str.write(calculated_resultStr)
@@ -143,7 +143,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         match = True
         print('Expected result matches calculated_result.')
     else:
-        print('Expected result does not match calculated_result. (or is nested)')
+        print('Expected result does not match calculated_result (or is nested and/or contains an unsupported datatype).')
         match = False
     if expected_resultStr_read==calculated_resultStr_read:
         print('Expected result string matches calculated_result string')
