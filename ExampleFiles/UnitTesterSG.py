@@ -98,7 +98,7 @@ def customCompare(firstInComparison,secondInComparison):
             return False
 
 
-def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=''):
+def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix='', allowOverwrite = True):
     calculated_resultObj_pickledfile='{}calculated_resultObj{}.p'.format(prefix,suffix)
     calculated_resultStr_file='{}calculated_resultStr{}.txt'.format(prefix,suffix)
     expected_result_file='{}expected_resultObj{}.p'.format(prefix,suffix)
@@ -140,26 +140,33 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         expected_resultObj_unpacked=None
     #compare the expected result to the calculated result, both obj and str
     if customCompare(expected_resultObj_unpacked,calculated_resultObj_unpacked) == True:
+        match = True
         print('Expected result matches calculated_result.')
     else:
-        print('Expected result does not match calculated_result (or is nested  and/or contains an unsupported datatype).')
+        print('Expected result does not match calculated_result (or is nested and/or contains an unsupported datatype).')
+        match = False
     if expected_resultStr_read==calculated_resultStr_read:
         print('Expected result string matches calculated_result string')
     else:
+        match = False
         print('Expected result string (top) does not match calculated_result string (bottom)')
         print(expected_resultStr_read)
         print(calculated_resultStr_read)
-        overwritechoice=str(input('Overwrite (or create) the expected result file from the calculated results provided (Y or N)? '))
-        if str(overwritechoice)=='Y':
-            #pickling the calculated result into the expected result file
-            with open(expected_result_file,'wb') as expected_resultObj:
-                pickle.dump(calculated_resultObj_unpacked,expected_resultObj)
-            with open(expected_resultStr_file,'w') as expected_resultStr:
-                expected_resultStr.write(calculated_resultStr_read)
-        elif str(overwritechoice)=='N':
-            pass    
-        else:
-            print("Error: Only Y or N allowed. Please run program again.")
+        #the if statement is to prevent pytest from needing user input 
+        if allowOverwrite:
+            overwritechoice=str(input('Overwrite (or create) the expected result file from the calculated results provided (Y or N)? '))
+            if str(overwritechoice)=='Y':
+                #pickling the calculated result into the expected result file
+                with open(expected_result_file,'wb') as expected_resultObj:
+                    pickle.dump(calculated_resultObj_unpacked,expected_resultObj)
+                with open(expected_resultStr_file,'w') as expected_resultStr:
+                    expected_resultStr.write(calculated_resultStr_read)
+            elif str(overwritechoice)=='N':
+                pass    
+            else:
+                print("Error: Only Y or N allowed. Please run program again.")
+            
+    return match
 			
 # skip running the whole program and just set the expected result
 def set_expected_result(expected_result_obj,expected_result_str='',
@@ -171,14 +178,14 @@ def set_expected_result(expected_result_obj,expected_result_str='',
     with open(expected_result_str_file,'w') as expected_result_file:
         expected_result_file.write(expected_result_str)
 
-#extracting the digit from the file name to use as prefix/suffix in check_results
-def return_digit_from_filename(callingFile):
+
+#Extracting the digit from the file name to use as prefix/suffix in check_results
+def returnDigitFromFilename(currentFile):
     import os
-    filename=os.path.basename(callingFile)
+    filename = os.path.basename(currentFile)
     import re
-    listOfNumbers=re.findall('\d+',filename)
-    #the digit is the first element in list of numbers
-    extractedDigit=listOfNumbers[0]
+    listOfNumbers = re.findall('\d+',filename)
+    extractedDigit = listOfNumbers[0]
     return extractedDigit
 
 
@@ -188,7 +195,9 @@ if __name__=="__main__":
     number_of_files=len(os.listdir(working_dir))
     for  i in range(1,number_of_files+1):
         try:
-            print("Trying Test" + str(i))
-            exec('import test{}'.format(i))
+            print("Trying test_" + str(i))
+            exec('import test_{}'.format(i))
+            exec('test_{}.test_Run(allowOverwrite = True)'.format(i))
         except ImportError:
             pass
+

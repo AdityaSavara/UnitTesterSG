@@ -7,10 +7,10 @@ This is done so that the user can use his or her expected output to test the fun
 EXAMPLES:
 Provided are multiple test cases in ExampleFiles: some have hard coded results while the last one shows how to use write a test file using a function.
 
-A typical template of what a test file should look like during practical use is in test11.py.  This file uses a simple function to sum values in a list together.
+A typical template of what a test file should look like during practical use is in test_11.py.  This file uses a simple function to sum values in a list together.
 To use these examples, make sure UnitTesterSG.py, nestedObjectsFunctions.py, and the testN.py files are in the same directory, where N is an integer test number.  Running UnitTesterSG and it will test the test cases present with the directory that have names like "test1.py", "test2.py", etc.
 
-Note: UnitTesterSG will look for test1.py, test2.py, test3.py... testN.py where N is the number of files in the directory (so if there are 4 unit tests but 11 files, it will print "trying test5, trying test6 ...." even if there are only 4 tests).
+Note: UnitTesterSG will look for test_1.py, test_2.py, test_3.py... test_N.py where N is the number of files in the directory (so if there are 4 unit tests but 11 files, it will print "trying test5, trying test6 ...." even if there are only 4 tests).
 
 Essentially, there are two aspects that this module handles: Storing expected results, and comparing to previously stored expected results.
 
