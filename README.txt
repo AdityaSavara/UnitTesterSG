@@ -1,4 +1,4 @@
-Using the Unit Testing Module (UnitTesterSG, version 2.0 as of July 2nd 2018):
+Using the Unit Testing Module (UnitTesterSG, version 3.0 as of July 11th 2018):
 
 PURPOSE OF MODULE:
 The unit tester is designed to test individual functions by storing outputs of a working function in an expected results file and comparing this output to the current output of the same function that may have been edited.
@@ -8,7 +8,7 @@ EXAMPLES:
 Provided are multiple test cases in ExampleFiles: some have hard coded results while the last one shows how to use write a test file using a function.
 
 A typical template of what a test file should look like during practical use is in test_11.py.  This file uses a simple function to sum values in a list together.
-To use these examples, make sure UnitTesterSG.py, nestedObjectsFunctions.py, and the testN.py files are in the same directory, where N is an integer test number.  Running UnitTesterSG and it will test the test cases present with the directory that have names like "test1.py", "test2.py", etc.
+To use these examples, make sure UnitTesterSG.py, nestedObjectsFunctions.py, and the testN.py files are in the same directory, where N is an integer test number.  Running UnitTesterSG and it will test the test cases present with the directory that have names like "test_1.py", "test_2.py", etc.  
 
 Note: UnitTesterSG will look for test_1.py, test_2.py, test_3.py... test_N.py where N is the number of files in the directory (so if there are 4 unit tests but 11 files, it will print "trying test5, trying test6 ...." even if there are only 4 tests).
 
@@ -20,6 +20,8 @@ Initially, there will be no "expected results" to check against. You can create 
 
 COMPARING TO PREVIOUSLY STORED EXPECTED RESULTS:
 Later, in the future, after you edit your function, you can check the revised function's outputs against those stored results by making a copy of the full subdirectory where you did the testing and replacing the version of your module in the fresh copy. Note that your (old) stored results will be in the freshly copied directory, so the unit tester will then compare your revised function's output to the stored output.
+
+One can run pytest from a root directory, and then pytest will run all of the UnitTesterSG tests automatically to make sure they still pass (relative to stored results).  The underscore in the file names are partially to be compatible with pytest. 
 
 
 Authors - Savara Group
