@@ -5,11 +5,6 @@ Created on Wed Nov 22 14:08:05 2017
 @author: tienhung2501
 """
 
-#Allows the nested objects function to be contained in the lib directory
-import sys
-import os
-sys.path.append(os.getcwd()+"\\lib")
-
 import numpy as np
 import collections
 import copy
