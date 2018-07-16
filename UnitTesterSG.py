@@ -188,16 +188,38 @@ def returnDigitFromFilename(currentFile):
     extractedDigit = listOfNumbers[0]
     return extractedDigit
 
+def callSubdirectories():
+    listOfDirectoriesAndFiles = os.listdir(".")
+    #Below is going to become a list of directories only in the next loop.
+    directoryList = []
+    for elem in listOfDirectoriesAndFiles:
+        if os.path.isdir(elem) == True:
+            directoryList.append(elem)
+    
+    #This loop goes into each directories, runs the specified command, and comes back.
+    for directory in directoryList:
+        print("\nChanging directory to"+directory)
+        os.chdir(directory)
+        listOfFilesInDirectory=os.listdir(".")\
+        
+        #Loops through each of the files in the directory and runs any file that begins with 'test_'
+        for name in listOfFilesInDirectory:
+            if "test_" in name:
+                print('\n'+ name)
+                os.system("python " + name)
+                
+        os.chdir("..")
+    
+    return
 
 if __name__=="__main__":
     import os
     working_dir=os.getcwd()
-    number_of_files=len(os.listdir(working_dir))
-    for  i in range(1,number_of_files+1):
-        try:
-            print("Trying test_" + str(i))
-            exec('import test_{}'.format(i))
-            exec('test_{}.test_Run(allowOverwrite = True)'.format(i))
-        except ImportError:
-            pass
+    filesInDirectory=os.listdir(working_dir)
+    for name in filesInDirectory:
+        if "test_"in name:
+            print('\n'+ name)
+            os.system("python " + name)
+            
+    callSubdirectories()
 
