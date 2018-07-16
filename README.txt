@@ -8,7 +8,7 @@ EXAMPLES:
 Provided are multiple test cases in ExampleFiles: some have hard coded results while the last one shows how to use write a test file using a function.
 
 A typical template of what a test file should look like during practical use is in test_11.py.  This file uses a simple function to sum values in a list together.
-To use these examples, make sure UnitTesterSG.py, nestedObjectsFunctions.py, and the testN.py files are in the same directory, where N is an integer test number.  Running UnitTesterSG and it will test the test cases present with the directory that have names like "test_1.py", "test_2.py", etc.  
+To use these examples, make sure UnitTesterSG.py, nestedObjectsFunctions.py, and the testN.py files, where N is an integer test number, are in the same directory or the test files are contained in subdirectories.  UnitTesterSG will run the test files contained in any of the subdirectories of the parent directory containing UnitTesterSG. When running UnitTesterSG, it will only test cases present in the parent directory or any subdirectories that have names like "test_1.py", "test_2.py", etc. For example, in the current structure, if UnitTesterSG is run, it will test all of the files contained in the example file directory.
 
 Note: UnitTesterSG will look for test_1.py, test_2.py, test_3.py... test_N.py where N is the number of files in the directory (so if there are 4 unit tests but 11 files, it will print "trying test5, trying test6 ...." even if there are only 4 tests).
 
