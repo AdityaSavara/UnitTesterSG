@@ -188,7 +188,7 @@ def returnDigitFromFilename(currentFile):
     extractedDigit = listOfNumbers[0]
     return extractedDigit
 
-def callSubdirectories():
+def runTestsInSubdirectories():
     listOfDirectoriesAndFiles = os.listdir(".")
     #Below is going to become a list of directories only in the next loop.
     directoryList = []
@@ -221,5 +221,5 @@ if __name__=="__main__":
             print('\n'+ name)
             os.system("python " + name)
             
-    callSubdirectories()
+    runTestsInSubdirectories()
 
