@@ -198,7 +198,7 @@ def runTestsInSubdirectories():
     
     #This loop goes into each directories, runs the specified command, and comes back.
     for directory in directoryList:
-        print("\nChanging directory to"+directory)
+        print("\nChanging directory to "+directory)
         os.chdir(directory)
         listOfFilesInDirectory=os.listdir(".")\
         
