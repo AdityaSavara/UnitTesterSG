@@ -4,7 +4,9 @@ Created on Tue Jun 12 14:07:44 2018
 
 @author: Alex
 """
-
+import sys
+sys.path.insert(1, "..\\lib")
+sys.path.insert(1, "..")
 #import the functions from UnitTesterSG
 import UnitTesterSG as ut
     
