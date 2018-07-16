@@ -149,27 +149,26 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         print('Expected result string matches calculated_result string')
     else: #implies that expected results string does not match calculated result string.
         match = False
-		if match == False: #if either object or string comparison failed, we consider overwriting old files.
-
-			#the if statement is to prevent pytest from needing user input. Perhaps should be changed to "interactiveTesting = True" rather than allowOverwrite = True.
-			if allowOverwrite:
-					if expected_resultStr_read!=calculated_resultStr_read:	#We give the option the user to print out the strings if the string comparison failed.
-						printStringsChoice=str(input('Expected result string does not match calculated_result string. Would you like to print them here now to inspect (Y or N)?'))
-						if str(printStringsChoice) == 'Y':
-							print('Expected result string (top) does not match calculated_result string (bottom)')
-							print(expected_resultStr_read)
-							print(calculated_resultStr_read)
-					overwritechoice=str(input('Overwrite (or create) the expected result file from the calculated results provided (Y or N)? '))
-					if str(overwritechoice)=='Y':
-							#pickling the calculated result into the expected result file
-							with open(expected_result_file,'wb') as expected_resultObj:
-									pickle.dump(calculated_resultObj_unpacked,expected_resultObj)
-							with open(expected_resultStr_file,'w') as expected_resultStr:
-									expected_resultStr.write(calculated_resultStr_read)
-					elif str(overwritechoice)=='N':
-							pass    
-					else:
-							print("Error: Only Y or N allowed. Please run program again.")            
+        if match == False: #if either object or string comparison failed, we consider overwriting old files.
+            #the if statement is to prevent pytest from needing user input. Perhaps should be changed to "interactiveTesting = True" rather than allowOverwrite = True.
+            if allowOverwrite:
+                if expected_resultStr_read!=calculated_resultStr_read:	#We give the option the user to print out the strings if the string comparison failed.
+                    printStringsChoice=str(input('Expected result string does not match calculated_result string. Would you like to print them here now to inspect (Y or N)?'))
+                    if str(printStringsChoice) == 'Y':
+                        print('Expected result string (top) does not match calculated_result string (bottom)')
+                        print(expected_resultStr_read)
+                        print(calculated_resultStr_read)
+                overwritechoice=str(input('Overwrite (or create) the expected result file from the calculated results provided (Y or N)? '))
+                if str(overwritechoice)=='Y':
+                #pickling the calculated result into the expected result file
+                    with open(expected_result_file,'wb') as expected_resultObj:
+                        pickle.dump(calculated_resultObj_unpacked,expected_resultObj)
+                    with open(expected_resultStr_file,'w') as expected_resultStr:
+                        expected_resultStr.write(calculated_resultStr_read)
+                elif str(overwritechoice)=='N':
+                    pass    
+                else:
+                    print("Error: Only Y or N allowed. Please run program again.")            
     return match
 			
 # skip running the whole program and just set the expected result
