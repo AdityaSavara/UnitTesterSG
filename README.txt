@@ -1,4 +1,4 @@
-Using the Unit Testing Module (UnitTesterSG, version 3.2 as of July 17th 2018):
+Using the Unit Testing Module (UnitTesterSG, version 3.3 as of July 17th 2018):
 
 PURPOSE OF MODULE:
 The unit tester is designed to test individual functions by storing outputs of a working function in an expected results file and comparing this output to the current output of the same function that may have been edited.

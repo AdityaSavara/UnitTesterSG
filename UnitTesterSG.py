@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#Version 3.2
+#Version 3.3
 """
 Created on Wed Nov 22 14:08:05 2017
 
@@ -193,6 +193,16 @@ def returnDigitFromFilename(currentFile):
     extractedDigit = listOfNumbers[0]
     return extractedDigit
 
+def doTest(resultObj, resultStr, prefix='',suffix='', allowOverwrite = False):
+    #if the user wants to be able to change what the saved outputs are
+    if allowOverwrite:
+        #This function call is used when this test is run solo as well as by UnitTesterSG
+        check_results(resultObj, resultStr, prefix = '', suffix=suffix)
+    #this option allows pytest to call the function
+    if not allowOverwrite: 
+        #this assert statement is required for the pytest module 
+        assert check_results(resultObj, resultStr, prefix = '', suffix=suffix, allowOverwrite = False) == True
+    
 def runTestsInSubdirectories():
     listOfDirectoriesAndFiles = os.listdir(".")
     #Below is going to become a list of directories only in the next loop.
