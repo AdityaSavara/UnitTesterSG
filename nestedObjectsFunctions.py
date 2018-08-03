@@ -58,8 +58,9 @@ Typically subtractionResult would be a deepcopy of one of the two arrays
 If there is a tuple or any other immutable type, the subtractNested function will not work
 subtractionResult = copy.deepcopy(arr1)
 subtractNested(arr1,arr2,subtractionResult)
+#we do allow approximate comparisons using the variables relativeTolerance and absoluteTolerance
 '''
-def subtractNested(arr1,arr2,subtractionResult):
+def subtractNested(arr1,arr2,subtractionResult, relativeTolerance=None, absoluteTolerance=None):
     if isinstance(arr1,collections.Iterable):
         for elemindex,elem in enumerate(arr1):
             if type(elem) == str:
@@ -71,10 +72,29 @@ def subtractNested(arr1,arr2,subtractionResult):
                     subtractionResult[elemindex] = 1
             else: 
                 if isNestedOrString(elem):
-                    subtractNested(arr1[elemindex],arr2[elemindex],subtractionResult[elemindex])
-                else:
-                    subtractionResult[elemindex] = arr1[elemindex] - arr2[elemindex]
-                    #There is an implied return of arr3 since arr3 was overwritten in the function       
+                    subtractNested(arr1[elemindex],arr2[elemindex],subtractionResult[elemindex], relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance)
+                else: #this is for final elements, like integers and floats.
+                    #we do allow approximate comparisons using the variables relativeTolerance and absoluteTolerance
+                    # there are a variety of comparison tools, https://docs.pytest.org/en/documentation-restructure/how-to/builtin.html#comparing-floating-point-numbers
+                    # we are using numpy allclose because we want to have  as few dependencies as possible, and numpy is not such a bad dependency in our view.
+                    if (relativeTolerance==None and absoluteTolerance==None):
+                        subtractionResult[elemindex] = arr1[elemindex] - arr2[elemindex]
+                    else: #Else one of the tolerances requested is not None
+                        import numpy as np 
+                        #we 1st need to make any tolerances that are still none into the numpy default, because we don't know if the person has selected both tolerances.
+                        #and we cannot feed "None" into numpy.
+                        if relativeTolerance == None:
+                            relativeTolerance = 1.0E-5
+                        if absoluteTolerance == None:
+                            absoluteTolerance = 1.0E-8
+                        #now we do the comparison
+                        trueIfTheyAreApproximatelyEqual = np.allclose(arr1[elemindex],arr2[elemindex], rtol = relativeTolerance, atol = absoluteTolerance)
+                        if trueIfTheyAreApproximatelyEqual == True:
+                            subtractionResult[elemindex] = 0
+                        if trueIfTheyAreApproximatelyEqual == False: #If they are not equal, we return the actual subtraction result.
+                            subtractionResult[elemindex] = arr1[elemindex] - arr2[elemindex]
+        #There is an implied return of arr3 since arr3 was overwritten in the function
+    
                         
 
 #This function converts a nested Structure into a nested list.
