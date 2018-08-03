@@ -67,7 +67,11 @@ def customCompare(firstInComparison,secondInComparison, relativeTolerance=None, 
                             relativeTolerance = 1.0E-5
                         if absoluteTolerance == None:
                             absoluteTolerance = 1.0E-8
-                        diffOfArrays = np.allclose(firstInComparisonArray,secondInComparisonArray, rtol = relativeTolerance, atol = absoluteTolerance)
+                        trueIfApproximatelyEqual = np.allclose(firstInComparisonArray,secondInComparisonArray, rtol = relativeTolerance, atol = absoluteTolerance)
+                        if trueIfApproximatelyEqual == True:
+                            diffOfArrays = 0
+                        if trueIfApproximatelyEqual == False: #return actual subtraction if they are not approximately equal.
+                            diffOfArrays = firstInComparisonArray - secondInComparisonArray
                     #take the sum of the differences
                     sumOfDifference = sumNestedAbsValues(diffOfArrays)
                     #If the sum of differences is 0 then the two arrays must be the same
