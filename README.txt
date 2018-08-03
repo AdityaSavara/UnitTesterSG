@@ -1,4 +1,4 @@
-Using the Unit Testing Module (UnitTesterSG, version 3.3 as of July 17th 2018):
+Using the Unit Testing Module (UnitTesterSG, version 4.0 as of aug 3rd 2018):
 
 PURPOSE OF MODULE:
 The unit tester is designed to test individual functions by storing outputs of a working function in an expected results file and comparing this output to the current output of the same function that may have been edited.
@@ -21,4 +21,6 @@ Later, in the future, after you edit your function, you can check the revised fu
 
 One can run pytest from a root directory, and then pytest will run all of the UnitTesterSG tests automatically to make sure they still pass (relative to stored results).  The underscore in the file names are partially to be compatible with pytest. 
 
+TOLERANCES
+We have added the ability to use absolute and relative tolerances as optional arguments.  Recommended values (if they will be used) are 1E-5 for the relative tolerance, and 1E-8 for the absolute tolerance.
 Authors - Savara Group
