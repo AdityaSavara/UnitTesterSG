@@ -167,7 +167,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
     else: #implies that expected results string does not match calculated result string.
         stringMatch = False
     if (objectMatch == False) and (stringMatch == True):
-        print("Warning: Strings can match for long/large arrays even if objects don't")
+        print("Warning: Strings can match for long/large arrays even if objects don't, due to '...'")
     if (objectMatch == False) or (stringMatch == False): #if either object or string comparison failed, we consider overwriting old files.
         #the if statement is to prevent pytest from needing user input. Perhaps should be changed to "interactiveTesting = True" rather than allowOverwrite = True.
         if allowOverwrite:
