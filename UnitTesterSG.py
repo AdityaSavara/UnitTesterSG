@@ -65,8 +65,10 @@ def customCompare(firstInComparison,secondInComparison, relativeTolerance=None, 
                         #and we cannot feed "None" into numpy.
                         if relativeTolerance == None:
                             relativeTolerance = 1.0E-5
+                            print("Warning: Can't have absolute tolerance without relative tolerance. Setting relative tolerance to 1.0E-5.")
                         if absoluteTolerance == None:
                             absoluteTolerance = 1.0E-8
+                            print("Warning: Can't have relative tolerance without absolute tolerance. Setting absolute tolerance to 1.0E-8.")
                         trueIfApproximatelyEqual = np.allclose(firstInComparisonArray,secondInComparisonArray, rtol = relativeTolerance, atol = absoluteTolerance)
                         if trueIfApproximatelyEqual == True:
                             diffOfArrays = 0
