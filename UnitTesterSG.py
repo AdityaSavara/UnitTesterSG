@@ -15,14 +15,14 @@ import pickle
 '''
 This function takes in two arrarys (or iterables) and compares them using functions from the nestedObjectsFunctions module
 '''
-def compareNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays, relativeTolerance=None, absoluteTolerance=None):
+def compareNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays, relativeTolerance=None, absoluteTolerance=None, softStringCompare=False):
         #Taking the difference of two arrays will yield in all elements being zero if the arrays are the same
         #If arrays are of different shape they will not be equal and the subtraction between the two will result in an error
     try:    
                     #Initializing diffOfArrays since it is needed for the subtractNested function
         diffOfArrays = nested_iter_to_nested_list(copy.deepcopy(firstInComparisonArray))
         #If the arrays are the same, subtractNested overwrites diffOfArrays with all zeros
-        subtractNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance)
+        subtractNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare)
     except:
         return False
     #The difference sum keeps adding all the values until it no longer has an array
@@ -45,7 +45,7 @@ the first time the unit tester is run because the expected results file will not
 If both inputs are not strings nor are they iterable, customCompare checks the equality using ==.
 #we do allow approximate comparisons using the variables relativeTolerance and absoluteTolerance
 '''
-def customCompare(firstInComparison,secondInComparison, relativeTolerance=None, absoluteTolerance=None):
+def customCompare(firstInComparison,secondInComparison, relativeTolerance=None, absoluteTolerance=None, softStringCompare=False):
     #If two variables are both strings, just simply compare them directly
     if ((type(firstInComparison) != str) and (type(secondInComparison) != str)):
         #checks to see if both variables are iterable and converts them into numpy arrays
@@ -83,7 +83,7 @@ def customCompare(firstInComparison,secondInComparison, relativeTolerance=None, 
                     else:
                         return False
                 except: 
-                    if compareNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance):
+                    if compareNested(firstInComparisonArray,secondInComparisonArray,diffOfArrays, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare):
                         return True
                     else:
                         return False
@@ -91,7 +91,7 @@ def customCompare(firstInComparison,secondInComparison, relativeTolerance=None, 
             #Functions in the nestedObjectFunctions module do work with nested tuples and lists so the except statement tells the code to do just that
             except:
                 diffOfArrays = copy.deepcopy(firstInComparison)
-                if compareNested(firstInComparison,secondInComparison,diffOfArrays, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance):
+                if compareNested(firstInComparison,secondInComparison,diffOfArrays, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare):
                     return True
                 else:
                     return False
@@ -105,18 +105,31 @@ def customCompare(firstInComparison,secondInComparison, relativeTolerance=None, 
         else:
             #if comparison can not run then types are probably different and returns false
             try:
-                comparison = (firstInComparison == secondInComparison)
-                return comparison
-            except:
+                if softStringCompare == True: #user opts to use stringCompare
+                    if isinstance(firstInComparison,str): #if firstInComparison is a string, then it can be used in stringCompare
+                        comparison = stringCompare(firstInComparison,secondInComparison)
+                    else:
+                        comparison = (firstInComparison == secondInComparison)
+                    return comparison
+                else: #user is not using stringCompare
+                    return (firstInComparison == secondInComparison)
+            except: #Unsure what conditions would throw an error here but just in case, return false if error is thrown
                 return False
-    else:
-        if firstInComparison == secondInComparison:
-            return True
-        else:
-            return False
+    else: #one of the items is a string
+        if softStringCompare == True: #If using stringCompare we need both items to be strings
+            if isinstance(firstInComparison,str) and isinstance(secondInComparison,str): #Check to see if items are strings
+                comparison = stringCompare(firstInComparison,secondInComparison) #return string compare's bool
+            else: #otherwise just compare the two
+                comparison = (firstInComparison == secondInComparison) #If they are different types this will be False
+            return comparison
+        else: #If not using string compare
+            if firstInComparison == secondInComparison: #compare the two items regularly
+                return True
+            else:
+                return False
 
 
-def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix='', allowOverwrite = True, relativeTolerance=None, absoluteTolerance=None):
+def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix='', allowOverwrite = True, relativeTolerance=None, absoluteTolerance=None, softStringCompare=False):
     calculated_resultObj_pickledfile='{}calculated_resultObj{}.p'.format(prefix,suffix)
     calculated_resultStr_file='{}calculated_resultStr{}.txt'.format(prefix,suffix)
     expected_result_file='{}expected_resultObj{}.p'.format(prefix,suffix)
@@ -130,7 +143,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
     #comparing from pickled and before
     
     #if calculated_resultObj_unpacked==calculated_resultObj:
-    if customCompare(calculated_resultObj_unpacked,calculated_resultObj, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance) == True:
+    if customCompare(calculated_resultObj_unpacked,calculated_resultObj, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare) == True:
         print('calculated_Results before and after pickling MATCH.')
     else:
         print("calculated_Results before and after pickling DO NOT MATCH (or is nested and/or contains an unsupported datatype).")
@@ -157,7 +170,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         expected_resultStr_read=''
         expected_resultObj_unpacked=None
     #compare the expected result to the calculated result, both obj and str
-    if customCompare(expected_resultObj_unpacked,calculated_resultObj_unpacked, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance) == True:
+    if customCompare(expected_resultObj_unpacked,calculated_resultObj_unpacked, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare) == True:
         print('Expected result and calculated_result MATCH.')
         objectMatch = True
     else: #implies that customCompare returned false.
@@ -212,16 +225,16 @@ def returnDigitFromFilename(currentFile):
     extractedDigit = listOfNumbers[0]
     return extractedDigit
 
-def doTest(resultObj, resultStr, prefix='',suffix='', allowOverwrite = False, relativeTolerance=None, absoluteTolerance=None):
+def doTest(resultObj, resultStr, prefix='',suffix='', allowOverwrite = False, relativeTolerance=None, absoluteTolerance=None, softStringCompare=False):
     #if the user wants to be able to change what the saved outputs are
     if allowOverwrite:
         #This function call is used when this test is run solo as well as by UnitTesterSG
-        check_results(resultObj, resultStr, prefix = '', suffix=suffix, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance)
+        check_results(resultObj, resultStr, prefix = '', suffix=suffix, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare)
     #this option allows pytest to call the function
     if not allowOverwrite: 
         #this assert statement is required for the pytest module 
         assert check_results(resultObj, resultStr, prefix = '', suffix=suffix, allowOverwrite = False,  
-               relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance) == True #This line is still part of assert.
+               relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare) == True #This line is still part of assert.
     
 def runTestsInSubdirectories():
     listOfDirectoriesAndFiles = os.listdir(".")

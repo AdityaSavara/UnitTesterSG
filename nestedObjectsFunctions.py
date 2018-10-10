@@ -5,6 +5,7 @@ Created on Mon Jun 18 11:49:12 2018
 @author: Alex
 """
 import collections
+import re
 
 #This makes the sum of a Nested array/list/tuple.
 #For example: [-1, 2, [3, 4, 5], 6] will give 19.
@@ -60,19 +61,27 @@ subtractionResult = copy.deepcopy(arr1)
 subtractNested(arr1,arr2,subtractionResult)
 #we do allow approximate comparisons using the variables relativeTolerance and absoluteTolerance
 '''
-def subtractNested(arr1,arr2,subtractionResult, relativeTolerance=None, absoluteTolerance=None):
+def subtractNested(arr1,arr2,subtractionResult, relativeTolerance=None, absoluteTolerance=None, softStringCompare=False):
     if isinstance(arr1,collections.Iterable):
         for elemindex,elem in enumerate(arr1):
             if type(elem) == str:
-                #The 0 or 1 returned is opposite what is normally done in Python
-                #1 is usually true and 0 is usually false 
-                if arr1 == arr2:
-                    subtractionResult[elemindex] = 0
-                else:
-                    subtractionResult[elemindex] = 1
+                if softStringCompare == True: #if using softStringCompare
+                    #The 0 or 1 returned is opposite what is normally done in Python
+                    #1 is usually true and 0 is usually false 
+                    if stringCompare(arr1[elemindex],arr2[elemindex]): #Determine if the strings are equal using stringCompare
+                        subtractionResult[elemindex] = 0
+                    else:
+                        subtractionResult[elemindex] = 1
+                else: #otherwise compare regularly
+                    #The 0 or 1 returned is opposite what is normally done in Python
+                    #1 is usually true and 0 is usually false 
+                    if arr1[elemindex] == arr2[elemindex]:
+                        subtractionResult[elemindex] = 0
+                    else:
+                        subtractionResult[elemindex] = 1
             else: 
                 if isNestedOrString(elem):
-                    subtractNested(arr1[elemindex],arr2[elemindex],subtractionResult[elemindex], relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance)
+                    subtractNested(arr1[elemindex],arr2[elemindex],subtractionResult[elemindex], relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare)
                 else: #this is for final elements, like integers and floats.
                     #we do allow approximate comparisons using the variables relativeTolerance and absoluteTolerance
                     # there are a variety of comparison tools, https://docs.pytest.org/en/documentation-restructure/how-to/builtin.html#comparing-floating-point-numbers
@@ -119,4 +128,27 @@ def nested_iter_to_nested_list(iterReceived):
             list_at_this_level[elemIndex] = elem
     return list_at_this_level
 
-	
+'''
+stringCompare takes in two strings and compares a standardized version of the two to see if they match
+Added: 181008
+Last modified: 181008
+'''
+def stringCompare(firstString,secondString):
+    #First store the strings into a variable that will be standardized
+    standardizedFirstString = firstString
+    standardizedSecondString = secondString
+    #Strip the strings of any whitespace on the outsides
+    standardizedFirstString = standardizedFirstString.strip()
+    standardizedSecondString = standardizedSecondString.strip()
+    #Make both strings lowercase
+    standardizedFirstString = standardizedFirstString.lower()
+    standardizedSecondString = standardizedSecondString.lower()
+    #Using regex, find any style of whitespace on the inside and replace it with a standardized space
+    standardizedFirstString = re.sub('\s+',' ',standardizedFirstString)
+    standardizedSecondString = re.sub('\s+',' ',standardizedSecondString)
+    
+    #If the standardized strings match return True
+    if standardizedFirstString == standardizedSecondString:
+        return True
+    else: #Otherwise return false
+        return False
