@@ -5,7 +5,7 @@ Created on Mon Jun 18 11:49:12 2018
 @author: Alex
 """
 import collections
-import re
+
 
 #This makes the sum of a Nested array/list/tuple.
 #For example: [-1, 2, [3, 4, 5], 6] will give 19.
@@ -134,6 +134,7 @@ Added: 181008
 Last modified: 181008
 '''
 def stringCompare(firstString,secondString):
+    import re
     #First store the strings into a variable that will be standardized
     standardizedFirstString = firstString
     standardizedSecondString = secondString
