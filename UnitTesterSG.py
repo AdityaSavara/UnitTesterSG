@@ -95,24 +95,29 @@ def customCompare(firstInComparison,secondInComparison, relativeTolerance=None, 
                     return True
                 else:
                     return False
-
-
         #checks to see if one, not both, of the variables are iterable
-        #this is for the case with one variable being None
+        #this is for the case with one variable being other such as None
         elif isinstance(firstInComparison,collections.Iterable) or isinstance(secondInComparison,collections.Iterable):
                 return False
-        #runs if neither of the variables are iterables or if they are both strings
-        else:
+        else: #both of the variables are not iterable and are therefore also not strings
             #if comparison can not run then types are probably different and returns false
             try:
-                if softStringCompare == True: #user opts to use stringCompare
-                    if isinstance(firstInComparison,str): #if firstInComparison is a string, then it can be used in stringCompare
-                        comparison = stringCompare(firstInComparison,secondInComparison)
-                    else:
-                        comparison = (firstInComparison == secondInComparison)
-                    return comparison
-                else: #user is not using stringCompare
+                #diffOfArrays will be an array of zeros if the two arrays are equal
+                if (relativeTolerance==None and absoluteTolerance==None):
                     return (firstInComparison == secondInComparison)
+                else: #Else one of the tolerances requested is not None
+                    import numpy as np 
+                    #we 1st need to make any tolerances that are still none into the numpy default, because we don't know if the person has selected both tolerances.
+                    #and we cannot feed "None" into numpy.
+                    if relativeTolerance == None:
+                        relativeTolerance = 1.0E-5
+                        print("Warning: Can't have absolute tolerance without relative tolerance. Setting relative tolerance to 1.0E-5.")
+                    if absoluteTolerance == None:
+                        absoluteTolerance = 1.0E-8
+                        print("Warning: Can't have relative tolerance without absolute tolerance. Setting absolute tolerance to 1.0E-8.")
+                    trueIfApproximatelyEqual = np.allclose(firstInComparison,secondInComparison, rtol = relativeTolerance, atol = absoluteTolerance)
+                    return trueIfApproximatelyEqual
+
             except: #Unsure what conditions would throw an error here but just in case, return false if error is thrown
                 return False
     else: #one of the items is a string
