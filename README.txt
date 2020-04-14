@@ -23,4 +23,4 @@ One can run pytest from a root directory, and then pytest will run all of the Un
 
 TOLERANCES
 We have added the ability to use absolute and relative tolerances as optional arguments.  Recommended values (if they will be used) are 1E-5 for the relative tolerance, and 1E-8 for the absolute tolerance.
-Authors - Savara Group
+Authors - Aditya Savara, Alex Rogers, Charless Watt, Andrea Kraetz
