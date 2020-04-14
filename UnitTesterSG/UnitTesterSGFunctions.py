@@ -1,11 +1,5 @@
 # -*- coding: utf-8 -*-
 #Version 3.3
-"""
-Created on Wed Nov 22 14:08:05 2017
-
-@author: tienhung2501
-"""
-
 import numpy as np
 import collections
 import copy
