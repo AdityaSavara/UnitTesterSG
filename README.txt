@@ -26,5 +26,4 @@ Later, in the future, after you edit your function, you can check the revised fu
 One can run pytestDriver from a root directory, and then it will use pytest for all of the UnitTesterSG tests automatically to make sure they still pass (relative to stored results).  The underscore in the file names are partially to be compatible with pytest.  So essentially one can have a UnitTests directory with subdirectories containing the unit test files for various functions, and then can place runUnitTesterSG.py or runPytestDriver.py for running at that time.
 
 TOLERANCES
-We have added the ability to use absolute and relative tolerances as optional arguments.  Recommended values (if they will be used) are 1E-5 for the relative tolerance, and 1E-8 for the absolute tolerance.
-Authors - Aditya Savara, Alex Rogers, Charless Watt, Andrea Kraetz
+The coide includes the ability to use absolute and/or relative tolerances as optional arguments.  Recommended values (if they will be used) are 1E-5 for the relative tolerance, and 1E-8 for the absolute tolerance.
