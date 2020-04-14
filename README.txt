@@ -1,5 +1,8 @@
 Using the Unit Testing Module (UnitTesterSG, version 4.2 as of Oct 16 2018):
 
+INSTALLATION: 
+Download the repository, then navigate to the directory and type "python setupy.py install"
+
 PURPOSE OF MODULE:
 The unit tester is designed to test individual functions by storing outputs of a working function in an expected results file and comparing this output to the current output of the same function that may have been edited.
 This is done so that the user can use his or her expected output to test the function at a later time to make sure the output now is the same as before and that no errors have come up. This module is designed to be able to unit test arrays, strings, as well as nested and deeply nested objects (including arrays with tuples inside, arrays with strings inside, etc.). The module is compatable with nested objects, and thus has a dependency on the nestedObjectsFunctions module. The module takes *calculated* results and then compares them to *expected* results. If no expected results are available (or they do not match the calculated results) the module then offers to store the calculated results as expected results for next time.
@@ -8,7 +11,7 @@ EXAMPLES:
 Provided are multiple test cases in ExampleFiles: some have hard coded results while the last one shows how to use write a test file using a function.
 
 A typical template of what a test file should look like during practical use is in test_11.py.  This file uses a simple function to sum values in a list together.
-To use these examples, make sure UnitTesterSG.py, nestedObjectsFunctions.py, and the testN.py files, where N is an integer test number, are in the same directory.  The test files should be in the same directory or in the direct subdirectories.  UnitTesterSG will run the test files contained in its directory and also in any of the direct subdirectories. When running UnitTesterSG, it will only run test files that have names like "test_1.py", "test_2.py", etc. For example, in the current structure, if UnitTesterSG is run, it will test all of the files contained in the example file directory.
+To use these examples, make sure UnitTesterSG.py, nestedObjectsFunctions.py, and the testN.py files, where N is an integer test number, are in the same directory.  The test files should be in the same directory or in the direct subdirectories.  UnitTesterSG will run the test files contained in its directory and also in any of the direct subdirectories. When running UnitTesterSG, it will only run test files that have names like "test_1.py", "test_2.py", etc. For example, in the current repository structure, after downloading, if UnitTesterSG.py is run, it will test all of the files contained in the example file directory. 
 
 Essentially, there are two aspects that this module handles: Storing expected results, and comparing to previously stored expected results.
 
