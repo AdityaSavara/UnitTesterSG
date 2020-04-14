@@ -1,0 +1,2 @@
+import UnitTesterSG.UnitTesterSGFunctions
+UnitTesterSG.UnitTesterSGFunctions.runAllTests()
