@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Jun 18 11:49:12 2018
-
-@author: Alex
-"""
 import collections
 
 
