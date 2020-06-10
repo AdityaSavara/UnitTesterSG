@@ -40,3 +40,7 @@ One can run pytestDriver from a root directory, and then it will use pytest for 
 
 TOLERANCES
 The code includes the ability to use absolute and/or relative tolerances as optional arguments.  Recommended values (if they will be used) are 1E-5 for the relative tolerance, and 1E-8 for the absolute tolerance.
+
+RELATED PROJECTS:
+https://github.com/astropy/pytest-arraydiff
+https://docs.pytest.org/en/latest/reference.html
