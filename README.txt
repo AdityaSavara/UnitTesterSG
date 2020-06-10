@@ -1,4 +1,17 @@
-UnitTesterSG, version 5.0 as of Apr 13 2020
+UnitTesterSG, version 5.0.1 as of May 09 2020
+
+QUICK INTRO:
+
+UnitTesterSG is for unit testing scientific/engineering outputs. It accommodates nested and even staggered array type structures, and mixed data types (like strings and integers etc). It also enables you to set numerical and absolute tolerances.
+
+To see a simple example usages, look at test_12.py and test_13.py inside the test12 and test13 directories. Normally, you'll put one or more unit test in a subdirectory (like test12 and test13).
+There are three ways to run unit tests:
+ **To run the test file directly, like test_12.py. This is useful whe you first make a unit test.
+ **To run all of your unit tests after you've made a change in your software, run pytestDriver (recommended) or UnitTesterSG (more interactive) from the parent directory of the test file by copying runPytestDriver and runUnitTesterSG into the parent directory.
+    -- A typical usage is to make a directory called "unittests", to place runPytestDriver and runUnitTesterSG, and then to make subdirectories like "test1" "test2" etc.
+    -- Try running runPytestDriver and runUnitTesterSG in the package to see what happens. If your test13 is fresh, it will fail the first time.
+ **You can also run pytest within an individual unittest directory.
+
 
 PURPOSE OF MODULE:
 UnitTesterSG is a unit testing framework that is designed for nested and/or scientific/engineering data structures. It is designed primarily for testing the outputs if a single function or simulation run by storing the expected results file such that comparisons to the stored output can be made with unit tests after the function or software has been edited. However, the compare nested objects module can also be imported directly and is quite useful even outside of unit testing.
@@ -6,9 +19,9 @@ UnitTesterSG is a unit testing framework that is designed for nested and/or scie
 This software is designed to be able to unit test arrays, strings, as well as nested and deeply nested objects (including arrays with tuples inside, arrays with strings inside, etc.). The software is compatable with nested objects, and thus has a dependency on the nestedObjectsFunctions module within. The software takes *calculated* results and then compares them to *expected* results. If no expected results are available (or they do not match the calculated results) the software then offers to store the calculated results as expected results for next time. Importantly, the software can also compare lists /arrays with multiple types of objects inside of them.
 
 EXAMPLES:
-Provided are multiple test cases in ExampleFiles: some have hard coded results while test 11 one shows how make a test file using an external function for a simulation/processing.
+Test12 and Test13 have been made to be very easy to follow for typical usage. Thes can serve as templates of what a test file should look like during practical use.
 
-A typical template of what a test file should look like during practical use is in test_11.py.  This file uses a simple function to sum values in a list together.
+Also provided are multiple test cases in ExampleFiles: some have hard coded results while test 11 one shows how make a test file using an external function for a simulation/processing.  Test 11 uses a simple function to sum values in a list together.
 
 In general, test files should be named test_N.py, where N is an integer test number. Then, to run the tests, either UnitTesterSG.runUnitTests() or UnitTesterSG.pytestDriver() must be called from within the same directory as the tests, or a parent directory of the tests. With either of these commands, UnitTesterSG will run the test files contained in its directory and also in any of the direct subdirectories. This repository has two simple files, runUnitTesterSG.py and runPytestDriver.py to demonstrate usage.
 
