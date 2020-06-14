@@ -1,4 +1,4 @@
-UnitTesterSG, version 5.0.3 as of June 14 2020
+UnitTesterSG, version 5.0.4 as of June 14 2020
 
 The LICENSE and MANUAL are in the UnitTesterSG directory, and at https://github.com/AdityaSavara/UnitTesterSG/tree/master/UnitTesterSG 
 
