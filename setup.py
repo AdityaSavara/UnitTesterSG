@@ -21,7 +21,7 @@ EMAIL = 'AditySavara2008@u.northwestern.edu'
 AUTHOR = 'Aditya Savara'
 REQUIRES_PYTHON = '>=3.0.0'
 VERSION = '5.0.2'
-LICENSE = 'BSD 3-Clause'
+LICENSE = 'BSD-3-Clause'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
@@ -121,7 +121,7 @@ setup(
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
-        #'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: BSD License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
