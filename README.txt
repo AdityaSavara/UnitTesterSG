@@ -4,7 +4,7 @@ The LICENSE and MANUAL are in the UnitTesterSG directory, and at https://github.
 
 QUICK INTRO:
 
-UnitTesterSG is for unit testing scientific/engineering outputs. It accommodates nested and even staggered array type structures, and mixed data types (like strings and integers etc). It also enables you to set numerical and absolute tolerances.
+UnitTesterSG is for unit testing scientific/engineering outputs. It accommodates nested and even staggered array type structures, and mixed data types (like strings and integers etc). It also enables you to set numerical and absolute tolerances. Compatible with pytest.
 
 Easiest to install by pip UnitTesterSG. (https://pypi.org/project/UnitTesterSG/) , then navigate download from https://github.com/AdityaSavara/UnitTesterSG/ to run the examples.
 
