@@ -4,6 +4,8 @@ QUICK INTRO:
 
 UnitTesterSG is for unit testing scientific/engineering outputs. It accommodates nested and even staggered array type structures, and mixed data types (like strings and integers etc). It also enables you to set numerical and absolute tolerances.
 
+Easiest to install by pip UnitTesterSG. (https://pypi.org/project/UnitTesterSG/) , then navigate to directory or download from github to run the examples.
+
 To see a simple example usages, look at test_12.py and test_13.py inside the test12 and test13 directories. Normally, you'll put one or more unit test in a subdirectory (like test12 and test13).
 There are three ways to run unit tests:
  **To run the test file directly, like test_12.py. This is useful whe you first make a unit test.

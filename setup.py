@@ -15,7 +15,7 @@ from setuptools import find_packages, setup, Command
 
 # Package meta-data.
 NAME = 'UnitTesterSG'
-DESCRIPTION = 'This is the UnitTesterSG package which is intended to for unit testing of scientific, engineering, and other languages.'
+DESCRIPTION = 'UnitTesterSG is for unit testing scientific/engineering outputs. It accommodates nested and even staggered array type structures, and mixed data types (like strings and integers etc). It also enables you to set numerical and absolute tolerances.'
 URL = 'https://github.com/AdityaSavara/UnitTesterSG'
 EMAIL = 'AditySavara2008@u.northwestern.edu'  
 AUTHOR = 'Aditya Savara'
