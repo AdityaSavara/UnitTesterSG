@@ -34,6 +34,11 @@ EXTRAS = {
     # 'uncertainties': ['uncertainties'], #pymc...
 }
 
+#To make sure the license etc. is included, I added the DATA_FILES object based on https://stackoverflow.com/questions/9977889/how-to-include-license-file-in-setup-py-script
+DATA_FILES = [
+       ("", ["./UnitTesterSG/LICENSE.txt", "./UnitTesterSG/MANUAL.txt"]),
+       ]
+
 # The rest you shouldn't have to touch too much :)
 # ------------------------------------------------
 # Except, perhaps the License and Trove Classifiers!
@@ -107,6 +112,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
+    data_files = DATA_FILES,
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
     # If your package is a single module, use this instead of 'packages':
     # py_modules=['mypackage'],
