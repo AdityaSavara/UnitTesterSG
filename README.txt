@@ -12,7 +12,7 @@ There are three ways to run unit tests:
     -- Try running runPytestDriver and runUnitTesterSG in the package to see what happens. If your test13 is fresh, it will fail the first time.
  **You can also run pytest within an individual unittest directory.
 
-Note: For any individual test, set allowOverwrite to False when calling doTest if you want to skip UnitTesterSG from stopping to notify user when results match but strings don't. 
+Note: For any individual test, set allowOverwrite to False when calling doTest if you want to skip UnitTesterSG from stopping to notify user when results match but result strings don't. 
 
 PURPOSE OF MODULE:
 UnitTesterSG is a unit testing framework that is designed for nested and/or scientific/engineering data structures. It is designed primarily for testing the outputs if a single function or simulation run by storing the expected results file such that comparisons to the stored output can be made with unit tests after the function or software has been edited. However, the compare nested objects module can also be imported directly and is quite useful even outside of unit testing.
