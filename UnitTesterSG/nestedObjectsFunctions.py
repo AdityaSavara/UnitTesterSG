@@ -40,7 +40,7 @@ def sumNestedAbsValues(arrayOrNumber):
 def isNestedOrString(arr):
     if isinstance(arr,collections.Iterable):
         for elem in arr:
-            if isinstance(arr,collections.Iterable):
+            if isinstance(elem,collections.Iterable):
                 return True
         #If it finishes the loop then it hasn't found a non-iterable object and is not nested
         return False
