@@ -15,6 +15,8 @@ def sumNested(arr):
     else:  #if the code has gotten here, the input is a number and the "sum" is just itself.
         sumArr = arr
         return sumArr
+
+sum_2dNested = sumNested #This really should have been the name originally.
     
 #This makes the sum of absolute values of a Nested array/list/tuple.
 #For example: [-1, 2, [3, 4, 5], 6] will give 21.
@@ -30,6 +32,7 @@ def sumNestedAbsValues(arrayOrNumber):
         AbsVal = abs(arrayOrNumber)
         return AbsVal
 
+sumNestedAbsValues_2dNested = sumNestedAbsValues #This really should have been the name originally.
 
 #isNestedOrString takes an array and checks to see if it is iterable.  If it is iterable then it loops through the array
 #to see if it has any more iterable objects.  If there are no iterable values in the array, then the array is not nested.
@@ -164,12 +167,10 @@ def makeAtLeast_2dNested(arr):
 
 def convertInternalToNumpyArray_2dNested(inputArray): #This is **specifically** for a nested array of the form [ [1],[2,3] ] Such that it is a 1D array of arrays.
     import numpy as np
-    inputArrayInternals = inputArray[0]
-    for elementIndex in range(0,len(inputArrayInternals)):
-        inputArrayInternals[elementIndex] = np.array(inputArrayInternals[elementIndex])
-    inputArray[0] = inputArrayInternals
-    return np.array(inputArray)
-    
+    inputArray = np.array(inputArray)
+    for elementIndex in range(0,len(inputArray)):
+        inputArray[elementIndex] = np.array(inputArray[elementIndex])
+    return np.array(inputArray)    
 
 #Takes objects like this: [1,2, [3,4]] and returns objects like this: [1,2,3,4]
 def flatten_2dNested(arr):
