@@ -75,7 +75,7 @@ def subtractNested(arr1,arr2,subtractionResult, relativeTolerance=None, absolute
                     else:
                         subtractionResult[elemindex] = 1
             else: 
-                if isNestedOrString(elem):
+                if isinstance(elem,collections.Iterable):
                     subtractNested(arr1[elemindex],arr2[elemindex],subtractionResult[elemindex], relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare)
                 else: #this is for final elements, like integers and floats.
                     #we do allow approximate comparisons using the variables relativeTolerance and absoluteTolerance
@@ -148,3 +148,48 @@ def stringCompare(firstString,secondString):
         return True
     else: #Otherwise return false
         return False
+
+#This is designed for arrays of numbers.
+def makeAtLeast_2dNested(arr):
+    import numpy as np
+    if type(arr) == type('str'): #If it's a string it's not nested.
+        nestedArray = [arr]
+    elif type(arr) != type('str'):#in the normal case, check if it's nested.
+        if isNestedOrString(arr) == False:
+            nestedArray = [arr]
+        else:
+            nestedArray = arr
+    return np.array(nestedArray)
+    
+
+def convertInternalToNumpyArray_2dNested(inputArray): #This is **specifically** for a nested array of the form [ [1],[2,3] ] Such that it is a 1D array of arrays.
+    import numpy as np
+    inputArrayInternals = inputArray[0]
+    for elementIndex in range(0,len(inputArrayInternals)):
+        inputArrayInternals[elementIndex] = np.array(inputArrayInternals[elementIndex])
+    inputArray[0] = inputArrayInternals
+    return np.array(inputArray)
+    
+
+#Takes objects like this: [1,2, [3,4]] and returns objects like this: [1,2,3,4]
+def flatten_2dNested(arr):
+    import numpy as np
+    arr = np.atleast_1d(arr)
+    for elemIndex, elem  in enumerate(arr):
+        if elemIndex == 0:
+            flattenedElem = np.array(elem).flatten()
+            flattenedArray = flattenedElem
+        elif elemIndex >0:
+            flattenedElem = np.array(elem).flatten()
+            flattenedArray = np.hstack((flattenedArray, flattenedElem))
+    return flattenedArray
+    
+#should return true for  [[1],[1,2]] and return false for [[1,2],[1,2]]
+def checkIfStaggered_2dNested(arr):
+        try:
+            arr = np.array(convertInternalToNumpyArray(arr))
+            onesArray = np.ones(np.shape(arr))
+            onesArray = np.matmul(arr.transpose(), onesArray) #This is the key line and catches staggered arrays.
+            return False
+        except:
+            return True
