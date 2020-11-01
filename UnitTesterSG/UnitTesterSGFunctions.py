@@ -44,7 +44,7 @@ def customCompare(firstInComparison,secondInComparison, relativeTolerance=None, 
     #If two variables are both strings, just simply compare them directly
     if ((type(firstInComparison) != str) and (type(secondInComparison) != str)):
         #checks to see if both variables are iterable and converts them into numpy arrays
-        if isinstance(firstInComparison,collections.Iterable) and isinstance(secondInComparison,collections.Iterable):
+        if isinstance(firstInComparison,collections.abc.Iterable) and isinstance(secondInComparison,collections.abc.Iterable):
             try:
                 firstInComparisonArray = np.array(firstInComparison)
                 secondInComparisonArray = np.array(secondInComparison)
@@ -92,7 +92,7 @@ def customCompare(firstInComparison,secondInComparison, relativeTolerance=None, 
                     return False
         #checks to see if one, not both, of the variables are iterable
         #this is for the case with one variable being other such as None
-        elif isinstance(firstInComparison,collections.Iterable) or isinstance(secondInComparison,collections.Iterable):
+        elif isinstance(firstInComparison,collections.abc.Iterable) or isinstance(secondInComparison,collections.abc.Iterable):
                 return False
         else: #both of the variables are not iterable and are therefore also not strings
             #if comparison can not run then types are probably different and returns false
