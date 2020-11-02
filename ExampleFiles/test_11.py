@@ -18,14 +18,14 @@ suffix = ut.returnDigitFromFilename(__file__)
 prefix = ''
 
 #input for the unit that will be tested
-input = [1,2,3]
+inputArray = [1,2,3]
 
 #These two lines can hardcode the expected results. They are not required. 
 #expected_results = 6
 #ut.set_expected_result(expected_results, str(expected_results), prefix = '', suffix=suffix)
 
 #outputs with the function being tested using the input
-output = sum_of_elements(input)
+output = sum_of_elements(inputArray)
 
 #places the object in a tuple
 resultObj = (output)

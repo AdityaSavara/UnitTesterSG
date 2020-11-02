@@ -129,7 +129,7 @@ def customCompare(firstInComparison,secondInComparison, relativeTolerance=None, 
                 return False
 
 
-def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix='', allowOverwrite = True, relativeTolerance=None, absoluteTolerance=None, softStringCompare=False):
+def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix='', allowOverwrite = True, relativeTolerance=None, absoluteTolerance=None, softStringCompare=False, interactiveTesting=False):
     calculated_resultObj_pickledfile='{}calculated_resultObj{}.p'.format(prefix,suffix)
     calculated_resultStr_file='{}calculated_resultStr{}.txt'.format(prefix,suffix)
     expected_result_file='{}expected_resultObj{}.p'.format(prefix,suffix)
@@ -185,13 +185,14 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         print("Warning: Strings can match for long/large arrays even if objects don't, due to '...'")
     if (objectMatch == False) or (stringMatch == False): #if either object or string comparison failed, we consider overwriting old files.
         #the if statement is to prevent pytest from needing user input. Perhaps should be changed to "interactiveTesting = True" rather than allowOverwrite = True.
-        if allowOverwrite:
+        if allowOverwrite==True or interactiveTesting==True:
             if expected_resultStr_read!=calculated_resultStr_read:	#We give the option the user to print out the strings if the string comparison failed.
                 printStringsChoice=str(input('Expected result string does not match calculated_result string. Would you like to print them here now to inspect (Y or N)?'))
                 if str(printStringsChoice) == 'Y':
                     print('Expected result string (top) DOES NOT MATCH calculated_result string (bottom)')
                     print(expected_resultStr_read)
                     print(calculated_resultStr_read)
+        if allowOverwrite==True:
             overwritechoice=str(input('Overwrite (or create) the expected result object and string files from the calculated results provided (Y or N)? '))
             if str(overwritechoice)=='Y':
             #pickling the calculated result into the expected result file

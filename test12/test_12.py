@@ -30,7 +30,7 @@ prefix = ''
 #We must make a single results object: we will put lists with those values inside. Recognize that we are expecting array objects, but we can define our analytical result as a list. This is part of why UnitTesterSG was developed, since it compares what is inside, not just the objects.
 """
 #input for the unit that will be tested
-input = 4
+inputValue = 4
 expectedFirstPart = [3,4,5]
 expectedSecondPart = [32,64]
 expectedResult = (expectedFirstPart,expectedSecondPart) #We are using a tuple, but it this could have been a list.
@@ -50,10 +50,10 @@ def calculationSecondPart(inputNumber):
     if inputNumber == 4:
         return 32.00000001*np.array([1.,2.]) #This will return an array similar to [32,64]. Believe me. We are intentionally using non integer values to demonstrate the tolerances feature.
 
-#input = 4 #This input is the same as above. Just reproduced for clarity. 
+#inputValue = 4 #This input is the same as above. Just reproduced for clarity. 
 #outputs with the function being tested using the input
-outputFirstPart = calculationFirstPart(input)
-outputSecondPart = calculationSecondPart(input)
+outputFirstPart = calculationFirstPart(inputValue)
+outputSecondPart = calculationSecondPart(inputValue)
 actualResult = (outputFirstPart, outputSecondPart)
 
 """We put our actual result into the resultObj variable."""
