@@ -160,9 +160,16 @@ def makeAtLeast_2dNested(arr):
     elif type(arr) != type('str'):#in the normal case, check if it's nested.
         if isNestedOrString(arr) == False:
             nestedArray = [arr]
-        else:
-            nestedArray = arr
-    return np.array(nestedArray)
+        else: #Else it is already nested. However, if it is a list containing zero length numpy arrays, then it will become collapsed unless we make the numpy arrays atleast_1d.
+            if type(arr) == type([]) and type(arr[0]) == type(np.array(0)):
+                import copy
+                nestedArray = copy.deepcopy(arr) #first make a copy, then change what is inside.
+                for elementIndex in range(len(arr)):
+                    nestedArray[elementIndex] = np.atleast_1d(nestedArray[elementIndex])
+            else: #Else is the normal case.
+                nestedArray = arr
+    nestedArray=np.array(nestedArray)
+    return nestedArray
     
 
 def convertInternalToNumpyArray_2dNested(inputArray): #This is **specifically** for a nested array of the form [ [1],[2,3] ] Such that it is a 1D array of arrays.
