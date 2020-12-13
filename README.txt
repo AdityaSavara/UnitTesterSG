@@ -1,4 +1,4 @@
-UnitTesterSG, version 5.1.4 as of Nov 1 2020
+UnitTesterSG
 
 The LICENSE and MANUAL are in the UnitTesterSG directory, and at https://github.com/AdityaSavara/UnitTesterSG/tree/master/UnitTesterSG 
 
@@ -38,13 +38,13 @@ Note: For any individual test, set allowOverwrite to False when calling doTest i
 
 
 STORING EXPECTED RESULTS:
-Initially, there will be no "expected results" to check against. You can create an expected results file ahead of time by using the set_expected_results function.  More typically, you would first check that your function works ahead of time, manually, and then make test_1.py, test_2.py, etc. files (see examples).  Then, when running UnitTesterSG you would choose the "Y" option to store the (already checked) results as the "Expected" results, when prompted. This way, they will be available for for later in the future. It is important that the function can work with "pickling" objects, which stores them in a way that they can be retrieved even after the program has ended. Thus, during running process, the module does check that it was able to properly pickle and retreive objects, by comparing whether the objects before and afer pickling are the same.
+Initially, there will be no "expected results" to check against. You can create an expected results file ahead of time by using the set_expected_results function.  More typically, you would first check that your function works ahead of time, manually, and then make test_1.py, test_2.py, etc. files (see examples) with interactiveTesting=True.  Then, when running UnitTesterSG you would choose the "Y" option to store the (already checked) results as the "Expected" results, when prompted. This way, they will be available for for later in the future. It is important that the function can work with "pickling" objects, which stores them in a way that they can be retrieved even after the program has ended. Thus, during running process, the module does check that it was able to properly pickle and retreive objects, by comparing whether the objects before and afer pickling are the same.
 
 
 COMPARING TO PREVIOUSLY STORED EXPECTED RESULTS:
 Later, in the future, after you edit your function, you can check the revised function's outputs against those stored results by making a copy of the full subdirectory where you did the testing and replacing the version of your module in the fresh copy. Note that your (old) stored results will be in the freshly copied directory, so the unit tester will then compare your revised function's output to the stored output.
 
-One can run pytestDriver from a root directory, and then it will use pytest for all of the UnitTesterSG tests automatically to make sure they still pass (relative to stored results).  The underscore in the file names are partially to be compatible with pytest.  So essentially one can have a UnitTests directory with subdirectories containing the unit test files for various functions, and then can place runUnitTesterSG.py or runPytestDriver.py for running at that time.
+One can run pytestDriver from a root directory, and then it will use pytest for all of the UnitTesterSG tests automatically to make sure they still pass (relative to stored results).  The underscore in the file names are partially to be compatible with pytest.  So essentially one can have a UnitTests directory with subdirectories containing the unit test files for various functions, and then can place runUnitTesterSG.py or runPytestDriver.py in the main directory.
 
 Note: For any individual test, set allowOverwrite to False when calling doTest if you want to skip UnitTesterSG from stopping to notify user when results match but strings don't. 
 

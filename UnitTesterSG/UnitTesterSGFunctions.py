@@ -6,6 +6,7 @@ import copy
 from UnitTesterSG.nestedObjectsFunctions import *
 import pickle
 import os
+import sys
 
 '''
 This function takes in two arrarys (or iterables) and compares them using functions from the nestedObjectsFunctions module
@@ -181,18 +182,20 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         stringMatch = True
     else: #implies that expected results string does not match calculated result string.
         stringMatch = False
+        print('Expected result string and calculated_result string DO NOT MATCH. \nThe compared strings are in files', expected_resultStr_file, calculated_resultStr_file)
     if (objectMatch == False) and (stringMatch == True):
         print("Warning: Strings can match for long/large arrays even if objects don't, due to '...'")
-    if (objectMatch == False) or (stringMatch == False): #if either object or string comparison failed, we consider overwriting old files.
-        #the if statement is to prevent pytest from needing user input. Perhaps should be changed to "interactiveTesting = True" rather than allowOverwrite = True.
-        if allowOverwrite==True or interactiveTesting==True:
+    if (stringMatch == False):
+        if (interactiveTesting==True and objectMatch == False): #we only consider printing the string if the objectMatch is false.
             if expected_resultStr_read!=calculated_resultStr_read:	#We give the option the user to print out the strings if the string comparison failed.
                 printStringsChoice=str(input('Expected result string does not match calculated_result string. Would you like to print them here now to inspect (Y or N)?'))
                 if str(printStringsChoice) == 'Y':
                     print('Expected result string (top) DOES NOT MATCH calculated_result string (bottom)')
                     print(expected_resultStr_read)
                     print(calculated_resultStr_read)
-        if allowOverwrite==True:
+    if (objectMatch == False): #if either object or string comparison failed, we consider overwriting old files.
+        #the if statement is to prevent pytest from needing user input. Perhaps should be changed to "interactiveTesting = True" rather than allowOverwrite = True.
+        if allowOverwrite==True and interactiveTesting==True:
             overwritechoice=str(input('Overwrite (or create) the expected result object and string files from the calculated results provided (Y or N)? '))
             if str(overwritechoice)=='Y':
             #pickling the calculated result into the expected result file
@@ -226,16 +229,16 @@ def returnDigitFromFilename(currentFile):
     extractedDigit = listOfNumbers[0]
     return extractedDigit
 
-def doTest(resultObj, resultStr, prefix='',suffix='', allowOverwrite = False, relativeTolerance=None, absoluteTolerance=None, softStringCompare=False):
+def doTest(resultObj, resultStr, prefix='',suffix='', allowOverwrite = False, relativeTolerance=None, absoluteTolerance=None, softStringCompare=False, interactiveTesting=False):
     #if the user wants to be able to change what the saved outputs are
     if allowOverwrite:
         #This function call is used when this test is run solo as well as by UnitTesterSG
-        check_results(resultObj, resultStr, prefix = '', suffix=suffix, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare)
+        check_results(resultObj, resultStr, prefix = '', suffix=suffix, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare, interactiveTesting=interactiveTesting)
     #this option allows pytest to call the function
     if not allowOverwrite: 
         #this assert statement is required for the pytest module 
         assert check_results(resultObj, resultStr, prefix = '', suffix=suffix, allowOverwrite = False,  
-               relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare) == True #This line is still part of assert.
+               relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare, interactiveTesting=False) == True #This line is still part of assert.
     
 def runTestsInSubdirectories():
     listOfDirectoriesAndFiles = os.listdir(".")
@@ -255,7 +258,7 @@ def runTestsInSubdirectories():
         for name in listOfFilesInDirectory:
             if "test_" in name:
                 print('\n'+ name)
-                os.system("python " + name)
+                os.system(sys.executable + " " + name) #sys.executable + name is like typing "python test_1.py". important for virtual environments and different systems
                 
         os.chdir("..")
     
@@ -268,7 +271,7 @@ def runAllTests():
     for name in filesInDirectory:
         if "test_"in name:
             print('\n'+ name)
-            os.system("python " + name)
+            os.system(sys.executable + " " + name) #sys.executable + name is like typing "python test_1.py". important for virtual environments and different systems
             
     runTestsInSubdirectories()
 
