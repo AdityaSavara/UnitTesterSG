@@ -181,18 +181,12 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         stringMatch = True
     else: #implies that expected results string does not match calculated result string.
         stringMatch = False
+        print('Expected result string and calculated_result string DO NOT MATCH')
     if (objectMatch == False) and (stringMatch == True):
         print("Warning: Strings can match for long/large arrays even if objects don't, due to '...'")
-    if (objectMatch == False) or (stringMatch == False): #if either object or string comparison failed, we consider overwriting old files.
+    if (objectMatch == False): #if either object or string comparison failed, we consider overwriting old files.
         #the if statement is to prevent pytest from needing user input. Perhaps should be changed to "interactiveTesting = True" rather than allowOverwrite = True.
         if allowOverwrite==True or interactiveTesting==True:
-            if expected_resultStr_read!=calculated_resultStr_read:	#We give the option the user to print out the strings if the string comparison failed.
-                printStringsChoice=str(input('Expected result string does not match calculated_result string. Would you like to print them here now to inspect (Y or N)?'))
-                if str(printStringsChoice) == 'Y':
-                    print('Expected result string (top) DOES NOT MATCH calculated_result string (bottom)')
-                    print(expected_resultStr_read)
-                    print(calculated_resultStr_read)
-        if allowOverwrite==True:
             overwritechoice=str(input('Overwrite (or create) the expected result object and string files from the calculated results provided (Y or N)? '))
             if str(overwritechoice)=='Y':
             #pickling the calculated result into the expected result file
@@ -204,6 +198,16 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
                 pass    
             else:
                 print("Error: Only Y or N allowed. Please run program again.")            
+    if (stringMatch == False):
+        if allowOverwrite==True and interactiveTesting==True:
+            if expected_resultStr_read!=calculated_resultStr_read:	#We give the option the user to print out the strings if the string comparison failed.
+                printStringsChoice=str(input('Expected result string does not match calculated_result string. Would you like to print them here now to inspect (Y or N)?'))
+                if str(printStringsChoice) == 'Y':
+                    print('Expected result string (top) DOES NOT MATCH calculated_result string (bottom)')
+                    print(expected_resultStr_read)
+                    print(calculated_resultStr_read)
+
+
     return objectMatch
 			
 # skip running the whole program and just set the expected result
