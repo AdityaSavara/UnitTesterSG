@@ -6,6 +6,7 @@ import copy
 from UnitTesterSG.nestedObjectsFunctions import *
 import pickle
 import os
+import sys
 
 '''
 This function takes in two arrarys (or iterables) and compares them using functions from the nestedObjectsFunctions module
@@ -259,7 +260,7 @@ def runTestsInSubdirectories():
         for name in listOfFilesInDirectory:
             if "test_" in name:
                 print('\n'+ name)
-                os.system("python " + name)
+                os.system(sys.executable + name) #sys.executable + name is like typing "python test_1.py". important for virtual environments and different systems
                 
         os.chdir("..")
     
@@ -272,7 +273,7 @@ def runAllTests():
     for name in filesInDirectory:
         if "test_"in name:
             print('\n'+ name)
-            os.system("python " + name)
+            os.system(sys.executable + name) #sys.executable + name is like typing "python test_1.py". important for virtual environments and different systems
             
     runTestsInSubdirectories()
 
