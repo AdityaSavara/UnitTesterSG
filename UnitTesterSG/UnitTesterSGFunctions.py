@@ -230,16 +230,16 @@ def returnDigitFromFilename(currentFile):
     extractedDigit = listOfNumbers[0]
     return extractedDigit
 
-def doTest(resultObj, resultStr, prefix='',suffix='', allowOverwrite = False, relativeTolerance=None, absoluteTolerance=None, softStringCompare=False):
+def doTest(resultObj, resultStr, prefix='',suffix='', allowOverwrite = False, relativeTolerance=None, absoluteTolerance=None, softStringCompare=False, interactiveTesting=False):
     #if the user wants to be able to change what the saved outputs are
     if allowOverwrite:
         #This function call is used when this test is run solo as well as by UnitTesterSG
-        check_results(resultObj, resultStr, prefix = '', suffix=suffix, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare)
+        check_results(resultObj, resultStr, prefix = '', suffix=suffix, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare, interactiveTesting=interactiveTesting)
     #this option allows pytest to call the function
     if not allowOverwrite: 
         #this assert statement is required for the pytest module 
         assert check_results(resultObj, resultStr, prefix = '', suffix=suffix, allowOverwrite = False,  
-               relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare) == True #This line is still part of assert.
+               relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare, interactiveTesting=False) == True #This line is still part of assert.
     
 def runTestsInSubdirectories():
     listOfDirectoriesAndFiles = os.listdir(".")
