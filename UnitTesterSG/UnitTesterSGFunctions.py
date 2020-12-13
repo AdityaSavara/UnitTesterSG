@@ -182,7 +182,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         stringMatch = True
     else: #implies that expected results string does not match calculated result string.
         stringMatch = False
-        print('Expected result string and calculated_result string DO NOT MATCH')
+        print('Expected result string and calculated_result string DO NOT MATCH. \nThe compared strings are in files', expected_resultStr_file, calculated_resultStr_file)
     if (objectMatch == False) and (stringMatch == True):
         print("Warning: Strings can match for long/large arrays even if objects don't, due to '...'")
     if (stringMatch == False):
