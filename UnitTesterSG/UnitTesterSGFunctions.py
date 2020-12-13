@@ -186,7 +186,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
     if (objectMatch == False) and (stringMatch == True):
         print("Warning: Strings can match for long/large arrays even if objects don't, due to '...'")
     if (stringMatch == False):
-        if (interactiveTesting==True and objectMatch == False) or (allowOverwrite==True and interactiveTesting==True): #we only consider printing the string if the objectMatch is false, or if the person might want to overwrite the old string.
+        if (interactiveTesting==True and objectMatch == False): #we only consider printing the string if the objectMatch is false.
             if expected_resultStr_read!=calculated_resultStr_read:	#We give the option the user to print out the strings if the string comparison failed.
                 printStringsChoice=str(input('Expected result string does not match calculated_result string. Would you like to print them here now to inspect (Y or N)?'))
                 if str(printStringsChoice) == 'Y':
