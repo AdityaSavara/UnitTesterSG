@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-#Version 3.3
 import numpy as np
 import collections
 import copy
@@ -7,6 +6,19 @@ from UnitTesterSG.nestedObjectsFunctions import *
 import pickle
 import os
 import sys
+
+'''This is a helper function for 'reloading' modules
+It deletes variables in them, which importlib reload does not do.
+'''
+def cleanLoad(module, moduleName=''):
+    if moduleName == '':
+        moduleName = module.__name__
+    for itemName in dir(module):
+        if itemName[0:2] != "__":
+            exec('del ' + moduleName+'.'+itemName)
+    import importlib
+    importlib.reload(module)
+    return module
 
 '''
 This function takes in two arrarys (or iterables) and compares them using functions from the nestedObjectsFunctions module
@@ -250,6 +262,8 @@ def runTestsInSubdirectories():
     
     #This loop goes into each directories, runs the specified command, and comes back.
     for directory in directoryList:
+        if directory == "__pycache__" or directory ==".cache" or directory ==".pycache":
+            continue
         print("\nChanging directory to "+directory)
         os.chdir(directory)
         listOfFilesInDirectory=os.listdir(".")\
