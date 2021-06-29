@@ -189,7 +189,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         #printing pass/fail, with color if available.
         try:
             import colorama
-            print(colorama.Fore.GREEN, '***********UNIT TEST PASSED**********')
+            print(colorama.Fore.GREEN + '***********UNIT TEST PASSED**********')
         except:
             print('***********UNIT TEST PASSED**********')
     else: #implies that customCompare returned false.
@@ -198,7 +198,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         #printing pass/fail, with color if available.
         try:
             import colorama
-            print(colorama.Fore.RED, '***********UNIT TEST FAILED**********')
+            print(colorama.Fore.RED + '***********UNIT TEST FAILED**********')
         except:
             print('***********UNIT TEST FAILED**********')
     if expected_resultStr_read==calculated_resultStr_read:
