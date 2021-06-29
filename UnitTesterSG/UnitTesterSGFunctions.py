@@ -6,6 +6,13 @@ from UnitTesterSG.nestedObjectsFunctions import *
 import pickle
 import os
 import sys
+try:
+    import colorama
+    colorama.init() #This is required otherwise colors don't appear correctly in the terminal when somebody is using a windows OS.
+    coloramaPresent = True
+else:
+    coloramaPresent = False
+
 
 '''This is a helper function for 'reloading' modules
 It deletes variables in them, which importlib reload does not do.
@@ -187,20 +194,18 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         print('Expected result and calculated_result MATCH.')
         objectMatch = True
         #printing pass/fail, with color if available.
-        try:
-            import colorama
-            print(colorama.Fore.GREEN + '\n  ***********UNIT TEST PASSED**********  \n' + colorama.Fore.RESET)
-        except:
+        if coloramaPresent == True:
+            print(colorama.Fore.GREEN + '\n***********UNIT TEST PASSED**********\n' + colorama.Fore.RESET)
+        else:
             print('\n  ***********UNIT TEST PASSED**********  \n')
     else: #implies that customCompare returned false.
         print("Expected result and calculated_result DO NOT MATCH (or is nested and/or contains an unsupported datatype).")
         objectMatch = False
         #printing pass/fail, with color if available.
-        try:
-            import colorama
-            print(colorama.Fore.RED + '\n  ***********UNIT TEST FAILED**********  \n'  + colorama.Fore.RESET)
-        except:
-            print('\n  ***********UNIT TEST FAILED**********  \n')
+        if coloramaPresent == True:
+            print(colorama.Fore.RED + '\n***********UNIT TEST FAILED**********\n'  + colorama.Fore.RESET)
+        else:
+            print('\n***********UNIT TEST FAILED**********\n')
     if expected_resultStr_read==calculated_resultStr_read:
         print('Expected result string and calculated_result string MATCH')
         stringMatch = True
