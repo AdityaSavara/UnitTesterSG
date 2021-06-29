@@ -10,7 +10,7 @@ try:
     import colorama
     colorama.init() #This is required otherwise colors don't appear correctly in the terminal when somebody is using a windows OS.
     coloramaPresent = True
-else:
+except:
     coloramaPresent = False
 
 
