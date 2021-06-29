@@ -6,6 +6,13 @@ from UnitTesterSG.nestedObjectsFunctions import *
 import pickle
 import os
 import sys
+try:
+    import colorama
+    colorama.init() #This is required otherwise colors don't appear correctly in the terminal when somebody is using a windows OS.
+    coloramaPresent = True
+except:
+    coloramaPresent = False
+
 
 '''This is a helper function for 'reloading' modules
 It deletes variables in them, which importlib reload does not do.
@@ -186,9 +193,19 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
     if customCompare(expected_resultObj_unpacked,calculated_resultObj_unpacked, relativeTolerance=relativeTolerance, absoluteTolerance=absoluteTolerance, softStringCompare=softStringCompare) == True:
         print('Expected result and calculated_result MATCH.')
         objectMatch = True
+        #printing pass/fail, with color if available.
+        if coloramaPresent == True:
+            print(colorama.Fore.GREEN + '\n***********UNIT TEST PASSED**********\n' + colorama.Fore.RESET)
+        else:
+            print('\n***********UNIT TEST PASSED**********\n')
     else: #implies that customCompare returned false.
         print("Expected result and calculated_result DO NOT MATCH (or is nested and/or contains an unsupported datatype).")
         objectMatch = False
+        #printing pass/fail, with color if available.
+        if coloramaPresent == True:
+            print(colorama.Fore.RED + '\n***********UNIT TEST FAILED**********\n'  + colorama.Fore.RESET)
+        else:
+            print('\n***********UNIT TEST FAILED**********\n')
     if expected_resultStr_read==calculated_resultStr_read:
         print('Expected result string and calculated_result string MATCH')
         stringMatch = True
@@ -201,7 +218,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         if (interactiveTesting==True and objectMatch == False): #we only consider printing the string if the objectMatch is false.
             if expected_resultStr_read!=calculated_resultStr_read:	#We give the option the user to print out the strings if the string comparison failed.
                 printStringsChoice=str(input('Expected result string does not match calculated_result string. Would you like to print them here now to inspect (Y or N)?'))
-                if str(printStringsChoice) == 'Y':
+                if str(printStringsChoice).lower() == 'y' or str(printStringsChoice).lower() == 'yes':
                     print('Expected result string (top) DOES NOT MATCH calculated_result string (bottom)')
                     print(expected_resultStr_read)
                     print(calculated_resultStr_read)
@@ -209,13 +226,13 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         #the if statement is to prevent pytest from needing user input. Perhaps should be changed to "interactiveTesting = True" rather than allowOverwrite = True.
         if allowOverwrite==True and interactiveTesting==True:
             overwritechoice=str(input('Overwrite (or create) the expected result object and string files from the calculated results provided (Y or N)? '))
-            if str(overwritechoice)=='Y':
+            if str(overwritechoice)=='Y' or str(overwritechoice)=='y' or str(overwritechoice).lower()=='yes':
             #pickling the calculated result into the expected result file
                 with open(expected_result_file,'wb') as expected_resultObj:
                     pickle.dump(calculated_resultObj_unpacked,expected_resultObj)
                 with open(expected_resultStr_file,'w') as expected_resultStr:
                     expected_resultStr.write(calculated_resultStr_read)
-            elif str(overwritechoice)=='N':
+            elif str(overwritechoice)=='N' or str(overwritechoice)=='n' or str(overwritechoice).lower()=='no':
                 pass    
             else:
                 print("Error: Only Y or N allowed. Please run program again.")            
