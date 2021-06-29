@@ -20,7 +20,7 @@ URL = 'https://github.com/AdityaSavara/UnitTesterSG'
 EMAIL = 'AditySavara2008@u.northwestern.edu'  
 AUTHOR = 'Aditya Savara'
 REQUIRES_PYTHON = '>=3.0.0'
-VERSION = '5.4.1'
+VERSION = '5.4.2'
 LICENSE = 'BSD-3-Clause'
 
 # What packages are required for this module to be executed?
@@ -29,9 +29,8 @@ REQUIRED = [
     # 'requests', 'maya', 'records', #numpy...
 ]
 
-# What packages are optional?
 EXTRAS = {
-    # 'uncertainties': ['uncertainties'], #pymc...
+    'COMPLETE': ['colorama', 'pytest'] #This is a list.
 }
 
 #To make sure the license etc. is included, I added the DATA_FILES object based on https://stackoverflow.com/questions/9977889/how-to-include-license-file-in-setup-py-script
