@@ -226,13 +226,13 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         #the if statement is to prevent pytest from needing user input. Perhaps should be changed to "interactiveTesting = True" rather than allowOverwrite = True.
         if allowOverwrite==True and interactiveTesting==True:
             overwritechoice=str(input('Overwrite (or create) the expected result object and string files from the calculated results provided (Y or N)? '))
-            if str(overwritechoice)=='Y':
+            if str(overwritechoice)=='Y' or str(overwritechoice)=='y' or str(overwritechoice).lower()=='yes':
             #pickling the calculated result into the expected result file
                 with open(expected_result_file,'wb') as expected_resultObj:
                     pickle.dump(calculated_resultObj_unpacked,expected_resultObj)
                 with open(expected_resultStr_file,'w') as expected_resultStr:
                     expected_resultStr.write(calculated_resultStr_read)
-            elif str(overwritechoice)=='N':
+            elif str(overwritechoice)=='N' or str(overwritechoice)=='n' or str(overwritechoice).lower()=='no':
                 pass    
             else:
                 print("Error: Only Y or N allowed. Please run program again.")            
