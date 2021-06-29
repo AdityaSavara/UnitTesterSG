@@ -197,7 +197,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         if coloramaPresent == True:
             print(colorama.Fore.GREEN + '\n***********UNIT TEST PASSED**********\n' + colorama.Fore.RESET)
         else:
-            print('\n  ***********UNIT TEST PASSED**********  \n')
+            print('\n***********UNIT TEST PASSED**********\n')
     else: #implies that customCompare returned false.
         print("Expected result and calculated_result DO NOT MATCH (or is nested and/or contains an unsupported datatype).")
         objectMatch = False
