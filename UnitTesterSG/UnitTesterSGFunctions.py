@@ -189,18 +189,18 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         #printing pass/fail, with color if available.
         try:
             import colorama
-            print('**  ' + colorama.Fore.GREEN + '  ***********UNIT TEST PASSED**********  ' + colorama.Fore.RESET + '  **')
+            print('*******  ' + colorama.Fore.GREEN + '  ***********UNIT TEST PASSED**********  ' + colorama.Fore.RESET + '  *******')
         except:
-            print('**  '+ '***********UNIT TEST PASSED**********' + '  **')
+            print('*******  '+ '***********UNIT TEST PASSED**********' + '  *******')
     else: #implies that customCompare returned false.
         print("Expected result and calculated_result DO NOT MATCH (or is nested and/or contains an unsupported datatype).")
         objectMatch = False
         #printing pass/fail, with color if available.
         try:
             import colorama
-            print('**  '+ colorama.Fore.RED + '  ***********UNIT TEST FAILED**********  '  + colorama.Fore.RESET + '  **')
+            print('*******  '+ colorama.Fore.RED + '  ***********UNIT TEST FAILED**********  '  + colorama.Fore.RESET + '  *******')
         except:
-            print('**  '+ '***********UNIT TEST FAILED**********' + '  **')
+            print('*******  '+ '***********UNIT TEST FAILED**********' + '  *******')
     if expected_resultStr_read==calculated_resultStr_read:
         print('Expected result string and calculated_result string MATCH')
         stringMatch = True
