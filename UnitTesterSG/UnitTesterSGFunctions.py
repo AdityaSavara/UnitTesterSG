@@ -218,7 +218,7 @@ def check_results(calculated_resultObj,calculated_resultStr='',prefix='',suffix=
         if (interactiveTesting==True and objectMatch == False): #we only consider printing the string if the objectMatch is false.
             if expected_resultStr_read!=calculated_resultStr_read:	#We give the option the user to print out the strings if the string comparison failed.
                 printStringsChoice=str(input('Expected result string does not match calculated_result string. Would you like to print them here now to inspect (Y or N)?'))
-                if str(printStringsChoice) == 'Y':
+                if str(printStringsChoice).lower() == 'y' or str(printStringsChoice).lower() == 'yes':
                     print('Expected result string (top) DOES NOT MATCH calculated_result string (bottom)')
                     print(expected_resultStr_read)
                     print(calculated_resultStr_read)
