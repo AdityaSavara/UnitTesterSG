@@ -20,5 +20,12 @@ def runAllTests():
             os.system("rm -r __pycache__ /Q") #for linux
         except:
             pass
-        os.system(sys.executable +" -m pytest") #this is like typing "python -m pytest" but uses whichever version of python should be used, important for virtual environments and different systems https://stackoverflow.com/questions/8338854/how-to-run-py-test-against-different-versions-of-python
+        #Try to run the test.
+        import pytest
+        exitCode = pytest.main()
+        # os.system(sys.executable +" -m pytest") #this is like typing "python -m pytest" but uses whichever version of python should be used, important for virtual environments and different systems https://stackoverflow.com/questions/8338854/how-to-run-py-test-against-different-versions-of-python
+        print("line 27", exitCode)
+        if exitCode >= 1 and exitCode <5:
+            print("the exitCode was >= equal to 1")
+            #sys.exit()
         os.chdir("..")
