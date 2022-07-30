@@ -5,10 +5,10 @@ Created on Tue Jun 12 14:07:44 2018
 @author: Alex
 """
 import sys
-
+import os
 import pathlib
 pathToThisFile = pathlib.Path(__file__).parent.resolve() 
-pathToLib = pathToThisFile + pathlib.Path("/lib") #using pathlib will work on any OS.
+pathToLib = os.path.join(pathToThisFile, pathlib.Path("lib")) #using pathlib will work on any OS.
 sys.path.insert(1, pathToLib) #If we just just used str(pathToThisFile) + ".\\lib" , the test would work locally, but online unit tests using pytest on Travis CI will fail, since that is linux based.
 print("Inside test_11.py", sys.path)
 sys.path.insert(1, pathToThisFile + "..")
