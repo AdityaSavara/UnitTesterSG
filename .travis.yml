@@ -9,4 +9,5 @@ install:
 script: 
   - cd test13
   - rm test_13.py
-  - python runPytestDriver.py
+  - cd ..
+  - python runPytestDriver.py failWithError #The "failWithError" optional argument will cause an error exitCode if any unit tests fail.
