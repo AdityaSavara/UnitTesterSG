@@ -28,15 +28,24 @@ def runAllTests(failWithError=False):
         if initExists:        
             #Try to run the test. In the past, we we used an executable version of pytest, but now we are using "pytest.main()" so we can get the exit code, that way we can fail with error if a unit test doesn't pass.
             import pytest
+            #before running pytest, add the current working directory.
+            currentTestDirectory = os.curdir #keep the directory in a variable because we will remove them again at the end.
+            sys.path.insert(0, currentTestDirectory)
             exitCode = pytest.main()
             # https://stackoverflow.com/questions/8338854/how-to-run-py-test-against-different-versions-of-python
             if exitCode >= 1 and exitCode <5:
                 allTestsPassed = False
+            #now remove the current directory.
+            sys.path.remove(currentTestDirectory)
         else: #if __init__ does not exist, we can usually still run the unit tests by running the pytest executable.
-            os.system(sys.executable +" -m pytest") #this is like typing "python -m pytest" but uses whichever version of python should be used, important for virtual environments and different systems
+            exitStatus = os.system(sys.executable +" -m pytest") #this is like typing "python -m pytest" but uses whichever version of python should be used, important for virtual environments and different systems
+            if (exitStatus == 256) or (exitStatus == 1):
+                allTestsPassed = False
         os.chdir("..")
     
     if allTestsPassed == False:
-        print("At least one unit test failed.")
+        print("UnitTesterSG pytestDriver Report: At least one unit test failed during pytestDriver.")
         if failWithError == True: #if the failWithError flag is on due to the optional argument, we will check if all tests passed. If not, we'll raise an error.
-            raise RuntimeError("At least one unit test failed.")  #This is to intentionally create an error so that the Travis CI will fail.
+            raise RuntimeError("UnitTesterSG: pytest error code: at least one unit test failed.")  #This is to intentionally create an error so that the Travis CI will fail.
+    if allTestsPassed == True:
+        print("UnitTesterSG pytestDriver Report: All tests passed during pytestDriver.")    

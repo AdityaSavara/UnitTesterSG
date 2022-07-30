@@ -19,11 +19,11 @@ There are three ways to run unit tests:
 Note: For any individual test, set allowOverwrite to False when calling doTest if you want to skip UnitTesterSG from stopping to notify user when results match but result strings don't. 
 
 COMPATIBILITY WITH PYTEST AND TRAVIS CI:
-Add an __init__.py file into each test directory (they can be empty) files
-Then add .travis.yml to your root directory, and the script command "python3 runPytestDriver.py failWithError" within it (as in this repository).
-The UnitTests will typically still run even without the __init__.py file, but the Travis checks might report a passing even when there is a failure. So it is important to include the __init__.py if Travis CI will be used.
+Add a .travis.yml to your root directory, and the script command "python3 runPytestDriver.py failWithError" within it (like the one in this repository).
+One advantage of this software over normal pytest usage is that UnitTesterSG does not require an __init__.py file in unit testing directories (and it is recommended not to include one).
+Normally, a new pytest executable will be launched in each unit test directory.  When where there is an __init__.py file present in the directory, then pytest will be run within the same python instance.
 
-PURPOSE OF MODULE:
+COMPARISON TO OTHER UNIT TESTING SOFTWARE:
 UnitTesterSG is a unit testing framework that is designed for nested and/or scientific/engineering data structures. It is designed primarily for testing the outputs if a single function or simulation run by storing the expected results file such that comparisons to the stored output can be made with unit tests after the function or software has been edited. However, the compare nested objects module can also be imported directly and is quite useful even outside of unit testing.
 
 This software is designed to be able to unit test arrays, strings, as well as nested and deeply nested objects (including arrays with tuples inside, arrays with strings inside, etc.). The software is compatable with nested objects, and thus has a dependency on the nestedObjectsFunctions module within. The software takes *calculated* results and then compares them to *expected* results. If no expected results are available (or they do not match the calculated results) the software then offers to store the calculated results as expected results for next time. Importantly, the software can also compare lists /arrays with multiple types of objects inside of them.
