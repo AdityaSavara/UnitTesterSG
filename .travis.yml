@@ -5,7 +5,8 @@ python:
 install:
   - virtualenv -p /opt/pyenv/versions/3.8/bin/python3.8 venv
   - source venv/bin/activate
-  - python setup.py install 
+  - pip install UnitTesterSG #this is mostly to get the dependencies.
+  - python setup.py install  #now overwrite old installations with the current version.
 # command to run tests
 #remove the test_13.py before running the runPytestDriver.py since that python file is designed to give an error as downloaded.
 script: 
