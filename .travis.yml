@@ -13,4 +13,7 @@ script:
   - cd test13
   - rm test_13.py
   - cd ..
+  - cd ExampleFiles
+  - python test_11.py
+  - pytest test_11.py
   - python3 runPytestDriver.py failWithError #The "failWithError" optional argument will cause an error exitCode if any unit tests fail.
