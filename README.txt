@@ -18,6 +18,10 @@ There are three ways to run unit tests:
 
 Note: For any individual test, set allowOverwrite to False when calling doTest if you want to skip UnitTesterSG from stopping to notify user when results match but result strings don't. 
 
+COMPATIBILITY WITH PYTEST AND TRAVIS CI:
+Add an __init__.py file into each test directory (they can be empty) files
+Then add .travis.yml to your root directory, and the script command "python3 runPytestDriver.py failWithError" within it (as in this repository).
+
 PURPOSE OF MODULE:
 UnitTesterSG is a unit testing framework that is designed for nested and/or scientific/engineering data structures. It is designed primarily for testing the outputs if a single function or simulation run by storing the expected results file such that comparisons to the stored output can be made with unit tests after the function or software has been edited. However, the compare nested objects module can also be imported directly and is quite useful even outside of unit testing.
 
