@@ -42,6 +42,6 @@ def runAllTests(failWithError=False):
         os.chdir("..")
     
     if allTestsPassed == False:
-        print("At least one unit test failed.")
+        print("UnitTesterSG: At least one unit test failed during pytestDriver.")
         if failWithError == True: #if the failWithError flag is on due to the optional argument, we will check if all tests passed. If not, we'll raise an error.
-            raise RuntimeError("At least one unit test failed.")  #This is to intentionally create an error so that the Travis CI will fail.
+            raise RuntimeError("UnitTesterSG: pytest error code: at least one unit test failed.")  #This is to intentionally create an error so that the Travis CI will fail.
