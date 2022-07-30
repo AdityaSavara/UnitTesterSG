@@ -10,7 +10,7 @@ Easiest to install by pip install UnitTesterSG, or pip install UnitTesterSG[COMP
 
 To see a simple example usages, look at test_12.py and test_13.py inside the test12 and test13 directories. Normally, you'll put one or more unit test in a subdirectory (like test12 and test13).
 There are three ways to run unit tests:
- **To run the test file directly, like test_12.py. This is useful whe you first make a unit test.
+ **To run the test file directly, like test_12.py. This is useful when you first make a unit test.
  **To run all of your unit tests after you've made a change in your software, run pytestDriver (recommended) or UnitTesterSG (more interactive) from the parent directory of the test file by copying runPytestDriver and runUnitTesterSG into the parent directory.
     -- A typical usage is to make a directory called "unittests", to place runPytestDriver and runUnitTesterSG, and then to make subdirectories like "test1" "test2" etc.
     -- Try running runPytestDriver and runUnitTesterSG in the package to see what happens. If your test13 is fresh, it will fail the first time.
