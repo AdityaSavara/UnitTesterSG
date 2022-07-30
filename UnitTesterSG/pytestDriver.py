@@ -1,7 +1,7 @@
 import os
 import sys
 
-def runAllTests():
+def runAllTests(failWithError=False):
     #in Python, the listdir command  returns files and directories (like typeing in "dir").
     listOfDirectoriesAndFiles = os.listdir(".")
 
@@ -10,7 +10,8 @@ def runAllTests():
     for elem in listOfDirectoriesAndFiles:
         if os.path.isdir(elem) == True:
             directoryList.append(elem)
-
+ 
+    allTestsPassed = True #initializing a flag to check if all tests have passed. Will change to False if any tests fail.
     #This loop goes into each directories, runs the specified command, and comes back.
     for directory in directoryList:
         print("Changing directory to "+directory)
@@ -20,12 +21,15 @@ def runAllTests():
             os.system("rm -r __pycache__ /Q") #for linux
         except:
             pass
-        #Try to run the test.
+        #Try to run the test. In the past, we we used an executable version of pytest, but now we are using "pytest.main()" so we can get the exit code, that way we can fail with error if a unit test doesn't pass.
         import pytest
         exitCode = pytest.main()
         # os.system(sys.executable +" -m pytest") #this is like typing "python -m pytest" but uses whichever version of python should be used, important for virtual environments and different systems https://stackoverflow.com/questions/8338854/how-to-run-py-test-against-different-versions-of-python
-        print("line 27", exitCode)
         if exitCode >= 1 and exitCode <5:
-            print("the exitCode was >= equal to 1")
-            #sys.exit()
+            allTestsPassed = False
+            
         os.chdir("..")
+    
+    if failWithError == True: #if the failWithError flag is on due to the optional argument, we will check if all tests passed. If not, we'll raise an error.
+        if allTestsPassed == False:
+            raise RuntimeError("At least one unit test failed.")  #This is to intentionally create an error so that the Travis CI will fail.

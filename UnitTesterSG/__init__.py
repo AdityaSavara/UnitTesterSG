@@ -1,8 +1,8 @@
 from UnitTesterSG.UnitTesterSGFunctions import *
 
-def pytestDriver():
+def pytestDriver(failWithError=False):
     import UnitTesterSG.pytestDriver
-    pytestDriver.runAllTests()
+    pytestDriver.runAllTests(failWithError=failWithError)
 
 def runUnitTests():
     import UnitTesterSG.UnitTesterSGFunctions
