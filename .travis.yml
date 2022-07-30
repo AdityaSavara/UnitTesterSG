@@ -1,8 +1,17 @@
 language: python
 python:
   - "3.8"
-# command to install dependencies
+# commands to install dependencies
 install:
-  - pip install UnitTesterSG
+  #No installation is required for UnitTesterSG with what is already on the Travis CI, so commenting out the below to let the build test run faster.
+  #- virtualenv -p /opt/pyenv/versions/3.8/bin/python3.8 venv
+  #- source venv/bin/activate
+  #- pip install UnitTesterSG[COMPLETE] #this is mostly to get the dependencies.
+  #- python setup.py install  #now overwrite old installations with the current version.
 # command to run tests
-script: python runPytestDriver.py
+#remove the test_13.py before running the runPytestDriver.py since that python file is designed to give an error as downloaded.
+script: 
+  - cd test13
+  - rm test_13.py
+  - cd ..
+  - python3 runPytestDriver.py failWithError #The "failWithError" optional argument will cause an error exitCode if any unit tests fail.
