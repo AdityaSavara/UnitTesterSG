@@ -39,7 +39,8 @@ def runAllTests(failWithError=False):
             sys.path.remove(currentTestDirectory)
         else: #if __init__ does not exist, we can usually still run the unit tests by running the pytest executable.
             exitStatus = os.system(sys.executable +" -m pytest") #this is like typing "python -m pytest" but uses whichever version of python should be used, important for virtual environments and different systems
-            print("line 42", exitStatus)
+            if (exitStatus == 256) or (exitStatus == 1):
+                allTestsPassed = False
         os.chdir("..")
     
     if allTestsPassed == False:
