@@ -6,7 +6,7 @@ python:
 before_install: #this is only for UnitTesterSG.
   #For UnitTesterSG, we remove the test_13.py before running the runPytestDriver.py since that python file is designed to give an error as downloaded.
   - cd test13  
-  - rm test_13.py
+  #- rm test_13.py
   - cd ..
   
 install:
