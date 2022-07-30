@@ -3,7 +3,7 @@ python:
   - "3.8"
 # command to install dependencies
 install:
-  - pip install UnitTesterSG
+  - python setup.py install 
 # command to run tests
 #remove the test_13.py before running the runPytestDriver.py since that python file is designed to give an error as downloaded.
 script: 
