@@ -5,8 +5,11 @@ Created on Tue Jun 12 14:07:44 2018
 @author: Alex
 """
 import sys
-sys.path.insert(1, ".\\lib")
-sys.path.insert(1, "..")
+
+import pathlib
+pathToThisFile = str(pathlib.Path(__file__).parent.resolve())
+sys.path.insert(1, pathToThisFile + "\\lib") #If we just just used ".\\lib" , the test would work locally, but online unit tests using pytest on Travis CI will fail.
+sys.path.insert(1, pathToThisFile + "..")
 #import the functions from UnitTesterSG
 import UnitTesterSG as ut
 #import your function
