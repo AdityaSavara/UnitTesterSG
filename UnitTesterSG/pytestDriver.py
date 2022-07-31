@@ -33,13 +33,15 @@ def runAllTests(failWithError=False):
             sys.path.insert(0, currentTestDirectory)
             exitCode = pytest.main()
             # https://stackoverflow.com/questions/8338854/how-to-run-py-test-against-different-versions-of-python
+            print("Unit test exitCode in pytestDriver:", exitCode)
             if exitCode >= 1 and exitCode <5:
                 allTestsPassed = False
             #now remove the current directory.
             sys.path.remove(currentTestDirectory)
         else: #if __init__ does not exist, we can usually still run the unit tests by running the pytest executable.
             exitStatus = os.system(sys.executable +" -m pytest") #this is like typing "python -m pytest" but uses whichever version of python should be used, important for virtual environments and different systems
-            if (exitStatus == 256) or (exitStatus == 1):
+            print("Unit test exitStatus in pytestDriver:", exitStatus)
+            if (exitStatus == 256) or (exitStatus == 1) or (exitStatus == 512):
                 allTestsPassed = False
         os.chdir("..")
     
