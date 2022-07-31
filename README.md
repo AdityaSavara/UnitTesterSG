@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/AdityaSavara/UnitTesterSG.svg?branch=master)](https://app.travis-ci.com/AdityaSavara/UnitTesterSG) [![DOI:<10.11578/dc.20200908.6>](http://img.shields.io/badge/DOI-10.11578/dc.20200908.6-green.svg)](<https://doi.org/10.11578/dc.20200908.6>) 
+[![DOI:<10.11578/dc.20200908.6>](http://img.shields.io/badge/DOI-10.11578/dc.20200908.6-green.svg)](<https://doi.org/10.11578/dc.20200908.6>) [![Build Status](https://app.travis-ci.com/AdityaSavara/UnitTesterSG.svg?branch=master)](https://app.travis-ci.com/AdityaSavara/UnitTesterSG) 
 
 # UnitTesterSG
 
