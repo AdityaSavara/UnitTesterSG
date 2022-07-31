@@ -1,4 +1,6 @@
-UnitTesterSG
+[![Build Status](https://app.travis-ci.com/AdityaSavara/UnitTesterSG.svg?branch=master)](https://app.travis-ci.com/AdityaSavara/UnitTesterSG)
+
+# UnitTesterSG
 
 The LICENSE and MANUAL are in the UnitTesterSG directory, and at https://github.com/AdityaSavara/UnitTesterSG/tree/master/UnitTesterSG 
 
