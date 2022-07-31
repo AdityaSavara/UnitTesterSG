@@ -1,10 +1,10 @@
-[![Build Status](https://app.travis-ci.com/AdityaSavara/UnitTesterSG.svg?branch=master)](https://app.travis-ci.com/AdityaSavara/UnitTesterSG)
+[![Build Status](https://app.travis-ci.com/AdityaSavara/UnitTesterSG.svg?branch=master)](https://app.travis-ci.com/AdityaSavara/UnitTesterSG) !DOI(https://img.shields.io/badge/10.11578/dc.20200908.6-green ) 
 
 # UnitTesterSG
 
 The LICENSE and MANUAL are in the UnitTesterSG directory, and at https://github.com/AdityaSavara/UnitTesterSG/tree/master/UnitTesterSG 
 
-QUICK INTRO:
+# QUICK INTRO:
 
 UnitTesterSG is for unit testing scientific/engineering outputs. It accommodates nested and even staggered array type structures, and mixed data types (like strings and integers etc). It also enables you to set numerical and absolute tolerances. Compatible with pytest.
 
@@ -20,17 +20,17 @@ There are three ways to run unit tests:
 
 Note: For any individual test, set allowOverwrite to False when calling doTest if you want to skip UnitTesterSG from stopping to notify user when results match but result strings don't. 
 
-COMPATIBILITY WITH PYTEST AND TRAVIS CI:
+# COMPATIBILITY WITH PYTEST AND TRAVIS CI:
 Add a .travis.yml to your root directory, and the script command "python3 runPytestDriver.py failWithError" within it (like the one in this repository).
 One advantage of this software over normal pytest usage is that UnitTesterSG does not require an __init__.py file in unit testing directories (and it is recommended not to include one).
 Normally, a new pytest executable will be launched in each unit test directory.  When where there is an __init__.py file present in the directory, then pytest will be run within the same python instance.
 
-COMPARISON TO OTHER UNIT TESTING SOFTWARE:
+# COMPARISON TO OTHER UNIT TESTING SOFTWARE:
 UnitTesterSG is a unit testing framework that is designed for nested and/or scientific/engineering data structures. It is designed primarily for testing the outputs if a single function or simulation run by storing the expected results file such that comparisons to the stored output can be made with unit tests after the function or software has been edited. However, the compare nested objects module can also be imported directly and is quite useful even outside of unit testing.
 
 This software is designed to be able to unit test arrays, strings, as well as nested and deeply nested objects (including arrays with tuples inside, arrays with strings inside, etc.). The software is compatable with nested objects, and thus has a dependency on the nestedObjectsFunctions module within. The software takes *calculated* results and then compares them to *expected* results. If no expected results are available (or they do not match the calculated results) the software then offers to store the calculated results as expected results for next time. Importantly, the software can also compare lists /arrays with multiple types of objects inside of them.
 
-EXAMPLES:
+# EXAMPLES:
 Test12 and Test13 have been made to be very easy to follow for typical usage. Thes can serve as templates of what a test file should look like during practical use.
 
 Also provided are multiple test cases in ExampleFiles: some have hard coded results while test 11 one shows how make a test file using an external function for a simulation/processing.  Test 11 uses a simple function to sum values in a list together.
@@ -44,11 +44,11 @@ Essentially, there are two aspects that this module handles: Storing expected re
 Note: For any individual test, set allowOverwrite to False when calling doTest if you want to skip UnitTesterSG from stopping to notify user when results match but strings don't. 
 
 
-STORING EXPECTED RESULTS:
+# STORING EXPECTED RESULTS:
 Initially, there will be no "expected results" to check against. You can create an expected results file ahead of time by using the set_expected_results function.  More typically, you would first check that your function works ahead of time, manually, and then make test_1.py, test_2.py, etc. files (see examples) with interactiveTesting=True.  Then, when running UnitTesterSG you would choose the "Y" option to store the (already checked) results as the "Expected" results, when prompted. This way, they will be available for for later in the future. It is important that the function can work with "pickling" objects, which stores them in a way that they can be retrieved even after the program has ended. Thus, during running process, the module does check that it was able to properly pickle and retreive objects, by comparing whether the objects before and afer pickling are the same.
 
 
-COMPARING TO PREVIOUSLY STORED EXPECTED RESULTS:
+# COMPARING TO PREVIOUSLY STORED EXPECTED RESULTS:
 Later, in the future, after you edit your function, you can check the revised function's outputs against those stored results by making a copy of the full subdirectory where you did the testing and replacing the version of your module in the fresh copy. Note that your (old) stored results will be in the freshly copied directory, so the unit tester will then compare your revised function's output to the stored output.
 
 One can run pytestDriver from a root directory, and then it will use pytest for all of the UnitTesterSG tests automatically to make sure they still pass (relative to stored results).  The underscore in the file names are partially to be compatible with pytest.  So essentially one can have a UnitTests directory with subdirectories containing the unit test files for various functions, and then can place runUnitTesterSG.py or runPytestDriver.py in the main directory.
@@ -56,9 +56,9 @@ One can run pytestDriver from a root directory, and then it will use pytest for 
 Note: For any individual test, set allowOverwrite to False when calling doTest if you want to skip UnitTesterSG from stopping to notify user when results match but strings don't. 
 
 
-TOLERANCES
+# TOLERANCES
 The code includes the ability to use absolute and/or relative tolerances as optional arguments.  Recommended values (if they will be used) are 1E-5 for the relative tolerance, and 1E-8 for the absolute tolerance.
 
-RELATED PROJECTS:
+# RELATED PROJECTS:
 https://github.com/astropy/pytest-arraydiff
 https://docs.pytest.org/en/latest/reference.html
