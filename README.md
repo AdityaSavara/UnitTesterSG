@@ -1,4 +1,6 @@
-[![DOI:<10.11578/dc.20200908.6>](http://img.shields.io/badge/DOI-10.11578/dc.20200908.6-green.svg)](<https://doi.org/10.11578/dc.20200908.6>) [![Build Status](https://app.travis-ci.com/AdityaSavara/UnitTesterSG.svg?branch=master)](https://app.travis-ci.com/AdityaSavara/UnitTesterSG) 
+[![DOI:<10.11578/dc.20200908.6>](http://img.shields.io/badge/DOI-10.11578/dc.20200908.6-green.svg)](<https://doi.org/10.11578/dc.20200908.6>) [![Build Status](https://app.travis-ci.com/AdityaSavara/UnitTesterSG.svg?branch=master)](https://app.travis-ci.com/AdityaSavara/UnitTesterSG)  [![UnitTests:<UnitTests>](http://img.shields.io/badge/UnitTests-Passing-blue.svg)](<Passing-blue>) 
+[![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+
 
 # UnitTesterSG
 
